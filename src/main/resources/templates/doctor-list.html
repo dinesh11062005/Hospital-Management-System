@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctors - Hospital Management</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f8fb;
+            color: #172b4d;
+            min-height: 100vh;
+
+            /* Footer stays at the bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 82px;
+            background: #092b49;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 4px solid #18b7a0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: white;
+            color: #0a9f91;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 23px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: #20c4ae;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #dce8f2;
+            padding: 11px 17px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav .active {
+            background: #0da99a;
+            color: white;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            width: 92%;
+            max-width: 1450px;
+            margin: 50px auto 80px;
+
+            /* Pushes footer to bottom */
+            flex: 1;
+        }
+
+        /* ================= PAGE TITLE ================= */
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .heading-left h1 {
+            font-size: 34px;
+            font-weight: 700;
+            color: #102f4d;
+            margin-bottom: 7px;
+        }
+
+        .heading-left p {
+            color: #718096;
+            font-size: 15px;
+        }
+
+        .heading-icon {
+            color: #0da99a;
+            margin-right: 8px;
+        }
+
+        /* ================= ADD BUTTON ================= */
+
+        .add-btn {
+            text-decoration: none;
+            background: #0da99a;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.25);
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #078c80;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.3);
+        }
+
+        /* ================= TABLE CARD ================= */
+
+        .table-card {
+            background: white;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
+            border: 1px solid #e4ebf1;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 1100px;
+        }
+
+        /* ================= TABLE HEADER ================= */
+
+        thead th {
+            background: #0b7f82;
+            color: white;
+            padding: 15px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.2px;
+        }
+
+        thead th:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        thead th:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* ================= TABLE BODY ================= */
+
+        tbody td {
+            padding: 16px 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #334e68;
+            border-bottom: 1px solid #e8eef3;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f7fbfc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ================= ID ================= */
+
+        .id-badge {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e8f5f4;
+            color: #087f78;
+            font-weight: 700;
+        }
+
+        /* ================= DOCTOR NAME ================= */
+
+        .doctor-name {
+            font-weight: 700;
+            color: #193b5a;
+        }
+
+        /* ================= SPECIALIZATION ================= */
+
+        .specialization {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e7f7f4;
+            color: #078276;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ================= EXPERIENCE ================= */
+
+        .experience {
+            font-weight: 600;
+            color: #435b73;
+        }
+
+        /* ================= AVAILABILITY ================= */
+
+        .available {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e8f7ed;
+            color: #168447;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .available::before {
+            content: "●";
+            margin-right: 5px;
+            font-size: 9px;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            text-decoration: none;
+            padding: 8px 13px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .edit-btn {
+            background: #f4b942;
+            color: #25313c;
+        }
+
+        .delete-btn {
+            background: #e5484d;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #e2a72f;
+            transform: translateY(-1px);
+        }
+
+        .delete-btn:hover {
+            background: #c9363c;
+            transform: translateY(-1px);
+        }
+
+        /* ================= EMPTY MESSAGE ================= */
+
+        .empty-message {
+            padding: 60px 20px;
+            text-align: center;
+            color: #718096;
+        }
+
+        .empty-message .icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .empty-message p {
+            font-size: 16px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            background: #092b49;
+            border-top: 4px solid #18b7a0;
+            color: #d9e5ee;
+            text-align: center;
+            padding: 24px 15px;
+            font-size: 13px;
+
+            /* Footer stays at bottom */
+            margin-top: auto;
+        }
+
+        .footer-main {
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .footer-sub {
+            color: #20c4ae;
+            font-size: 12px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .header {
+                height: auto;
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-heading {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .add-btn {
+                align-self: flex-start;
+            }
+
+            .heading-left h1 {
+                font-size: 28px;
+            }
+
+            .main {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .nav a {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .heading-left h1 {
+                font-size: 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✚
+            </div>
+
+            <div class="logo-text">
+                HOSPITAL <span>MANAGEMENT SYSTEM</span>
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <a href="/">
+                🏠 Dashboard
+            </a>
+
+            <a href="/doctors" class="active">
+                👨‍⚕️ Doctors
+            </a>
+
+            <a href="/patients">
+                👤 Patients
+            </a>
+
+            <a href="/appointments">
+                📅 Appointments
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div class="heading-left">
+
+                <h1>
+                    <span class="heading-icon">👨‍⚕️</span>
+                    Doctor List
+                </h1>
+
+                <p>
+                    Manage doctors and their professional information
+                </p>
+
+            </div>
+
+            <a href="/doctors/new" class="add-btn">
+                ＋ Add Doctor
+            </a>
+
+        </div>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <div class="table-card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Doctor Name</th>
+                        <th>Specialization</th>
+                        <th>Department</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Shift Timing</th>
+                        <th>Experience</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <!-- DOCTOR DATA -->
+
+                    <tr th:each="doctor : ${doctors}">
+
+                        <td>
+
+                            <span
+                                class="id-badge"
+                                th:text="${doctor.id}">
+                            </span>
+
+                        </td>
+
+                        <td
+                            class="doctor-name"
+                            th:text="${doctor.name}">
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="specialization"
+                                th:text="${doctor.specialization}">
+                            </span>
+
+                        </td>
+
+                        <td
+                            th:text="${doctor.department}">
+                        </td>
+
+                        <td
+                            th:text="${doctor.phone}">
+                        </td>
+
+                        <td
+                            th:text="${doctor.email}">
+                        </td>
+
+                        <td
+                            th:text="${doctor.shiftTiming}">
+                        </td>
+
+                        <td>
+
+                            <span class="experience">
+
+                                <span
+                                    th:text="${doctor.experience}">
+                                </span>
+
+                                Years
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="available"
+                                th:text="${doctor.availability}">
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a
+                                    th:href="@{/doctors/edit/{id}(id=${doctor.id})}"
+                                    class="edit-btn">
+                                    ✎ Edit
+                                </a>
+
+                                <a
+                                    th:href="@{/doctors/delete/{id}(id=${doctor.id})}"
+                                    class="delete-btn"
+                                    onclick="return confirm('Are you sure you want to delete this doctor?')">
+                                    🗑 Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- EMPTY TABLE -->
+
+                    <tr th:if="${#lists.isEmpty(doctors)}">
+
+                        <td colspan="10">
+
+                            <div class="empty-message">
+
+                                <span class="icon">
+                                    🩺
+                                </span>
+
+                                <p>
+                                    No doctors found
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-main">
+            © 2026 Hospital Management System. All Rights Reserved.
+        </div>
+
+        <div class="footer-sub">
+            Caring for Life • Committed to Excellence
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

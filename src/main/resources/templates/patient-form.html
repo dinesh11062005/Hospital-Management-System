@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Form - Hospital Management</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f8fb;
+            color: #172b4d;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 82px;
+            background: #092b49;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom: 4px solid #18b7a0;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            background: white;
+            color: #0da99a;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 23px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: #20c4ae;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #dce8f2;
+
+            padding: 11px 17px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav .active {
+            background: #0da99a;
+            color: white;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 45px auto 70px;
+        }
+
+        /* ================= FORM CONTAINER ================= */
+
+        .form-container {
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 40px 50px;
+
+            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
+
+            border: 1px solid #e4ebf1;
+        }
+
+        /* ================= FORM HEADING ================= */
+
+        .form-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-heading h1 {
+            font-size: 32px;
+            color: #102f4d;
+            margin-bottom: 8px;
+        }
+
+        .form-heading p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .title-line {
+            width: 55px;
+            height: 4px;
+
+            background: #18b7a0;
+
+            border-radius: 10px;
+
+            margin: 14px auto 0;
+        }
+
+        /* ================= FORM GRID ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 24px 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            color: #344e68;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 48px;
+
+            padding: 0 14px;
+
+            border: 1px solid #d4dee7;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-family: inherit;
+
+            color: #263b53;
+
+            background: #fbfdff;
+
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: #9aa9b8;
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #9bb8c4;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+
+            border: 2px solid #18a99a;
+
+            background: white;
+
+            box-shadow: 0 0 0 3px rgba(24, 183, 160, 0.10);
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .button-section {
+            margin-top: 38px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #e8eef3;
+
+            text-align: center;
+        }
+
+        .save-btn {
+            min-width: 260px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #0da99a;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.22);
+        }
+
+        .save-btn:hover {
+            background: #078c80;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.28);
+        }
+
+        .back-btn {
+            display: block;
+
+            margin-top: 18px;
+
+            color: #0b7f82;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #075c60;
+
+            text-decoration: underline;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            background: #092b49;
+
+            border-top: 4px solid #18b7a0;
+
+            color: #d9e5ee;
+
+            text-align: center;
+
+            padding: 24px 15px;
+
+            font-size: 13px;
+        }
+
+        .footer-main {
+            margin-bottom: 7px;
+        }
+
+        .footer-sub {
+            color: #20c4ae;
+
+            font-size: 12px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .header {
+                height: auto;
+
+                padding: 18px 5%;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .page {
+                width: 95%;
+
+                margin-top: 30px;
+            }
+
+            .form-container {
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 30px 22px;
+            }
+
+            .form-heading h1 {
+                font-size: 27px;
+            }
+
+            .save-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .nav a {
+                padding: 8px 10px;
+
+                font-size: 12px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✚
+            </div>
+
+            <div class="logo-text">
+                HOSPITAL <span>MANAGEMENT SYSTEM</span>
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/">
+                🏠 Dashboard
+            </a>
+
+            <a href="/doctors">
+                👨‍⚕️ Doctors
+            </a>
+
+            <a href="/patients" class="active">
+                👤 Patients
+            </a>
+
+            <a href="/appointments">
+                📅 Appointments
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+        <div class="form-container">
+
+
+            <!-- ================= FORM HEADING ================= -->
+
+            <div class="form-heading">
+
+                <h1>
+                    👤 Patient Details
+                </h1>
+
+                <p>
+                    Enter the patient's personal and admission information
+                </p>
+
+                <div class="title-line"></div>
+
+            </div>
+
+
+
+            <!-- ================= FORM ================= -->
+
+            <form
+                th:action="@{/patients/save}"
+                th:object="${patient}"
+                method="post">
+
+
+                <!-- Hidden ID -->
+
+                <input type="hidden" th:field="*{id}">
+
+
+
+                <!-- ================= FORM GRID ================= -->
+
+                <div class="form-grid">
+
+
+                    <!-- ================= NAME ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Patient Name
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{name}"
+                            placeholder="Enter patient name"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= AGE ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            th:field="*{age}"
+                            placeholder="Enter age"
+                            min="1"
+                            max="120"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= GENDER ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Gender
+                        </label>
+
+                        <select
+                            th:field="*{gender}"
+                            required>
+
+                            <option value="">
+                                -- Select Gender --
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ================= PHONE ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            th:field="*{phone}"
+                            placeholder="Enter phone number"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= EMAIL ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            th:field="*{email}"
+                            placeholder="Enter email address">
+
+                    </div>
+
+
+
+                    <!-- ================= REASON ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Reason
+                        </label>
+
+                        <select
+                            th:field="*{disease}"
+                            required>
+
+                            <option value="">
+                                -- Select Reason --
+                            </option>
+
+                            <option value="General Checkup">
+                                General Checkup
+                            </option>
+
+                            <option value="Fever">
+                                Fever
+                            </option>
+
+                            <option value="Headache">
+                                Headache
+                            </option>
+
+                            <option value="Cold & Cough">
+                                Cold & Cough
+                            </option>
+
+                            <option value="Body Pain">
+                                Body Pain
+                            </option>
+
+                            <option value="Stomach Pain">
+                                Stomach Pain
+                            </option>
+
+                            <option value="Chest Pain">
+                                Chest Pain
+                            </option>
+
+                            <option value="Injury">
+                                Injury
+                            </option>
+
+                            <option value="Follow-up">
+                                Follow-up
+                            </option>
+
+                            <option value="Vaccination">
+                                Vaccination
+                            </option>
+
+                            <option value="Medical Consultation">
+                                Medical Consultation
+                            </option>
+
+                            <option value="Routine Checkup">
+                                Routine Checkup
+                            </option>
+
+                            <option value="Health Screening">
+                                Health Screening
+                            </option>
+
+                            <option value="Emergency">
+                                Emergency
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ================= ADMISSION DATE ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Admission Date
+                        </label>
+
+                        <input
+                            type="date"
+                            th:field="*{admissionDate}"
+                            required>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= BUTTONS ================= -->
+
+                <div class="button-section">
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        💾 Save Patient
+
+                    </button>
+
+
+                    <a
+                        href="/patients"
+                        class="back-btn">
+
+                        ← Back to Patient List
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-main">
+            © 2026 Hospital Management System. All Rights Reserved.
+        </div>
+
+        <div class="footer-sub">
+            Caring for Life • Committed to Excellence
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

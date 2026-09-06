@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointment Form - Hospital Management</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #172b4d;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+
+            height: 82px;
+
+            background: #092b49;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom: 4px solid #18b7a0;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* ================= LOGO ================= */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            background: white;
+
+            color: #0da99a;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo-text {
+
+            color: white;
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .logo-text span {
+
+            color: #20c4ae;
+
+        }
+
+
+        /* ================= NAVIGATION ================= */
+
+        .nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .nav a {
+
+            text-decoration: none;
+
+            color: #dce8f2;
+
+            padding: 11px 17px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav a:hover {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: white;
+
+        }
+
+
+        .nav .active {
+
+            background: #0da99a;
+
+            color: white;
+
+        }
+
+
+        /* ================= PAGE ================= */
+
+        .page {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 45px auto 70px;
+
+            flex: 1;
+
+        }
+
+
+        /* ================= FORM CONTAINER ================= */
+
+        .form-container {
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 40px 50px;
+
+            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
+
+            border: 1px solid #e4ebf1;
+
+        }
+
+
+        /* ================= FORM HEADING ================= */
+
+        .form-heading {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .form-heading h1 {
+
+            font-size: 32px;
+
+            color: #102f4d;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-heading p {
+
+            color: #718096;
+
+            font-size: 14px;
+
+        }
+
+
+        .title-line {
+
+            width: 55px;
+
+            height: 4px;
+
+            background: #18b7a0;
+
+            border-radius: 10px;
+
+            margin: 14px auto 0;
+
+        }
+
+
+        /* ================= ERROR MESSAGE ================= */
+
+        .error-message {
+
+            background: #fde8e8;
+
+            color: #b4232c;
+
+            border: 1px solid #f5b5b8;
+
+            border-radius: 8px;
+
+            padding: 13px 16px;
+
+            margin-bottom: 25px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ================= FORM GRID ================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 24px 30px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        label {
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #344e68;
+
+        }
+
+
+        /* ================= INPUTS ================= */
+
+        input,
+
+        select {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 14px;
+
+            border: 1px solid #d4dee7;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-family: inherit;
+
+            color: #263b53;
+
+            background: #fbfdff;
+
+            transition: 0.2s;
+
+        }
+
+
+        input::placeholder {
+
+            color: #9aa9b8;
+
+        }
+
+
+        input:hover,
+
+        select:hover {
+
+            border-color: #9bb8c4;
+
+        }
+
+
+        input:focus,
+
+        select:focus {
+
+            outline: none;
+
+            border: 2px solid #18a99a;
+
+            background: white;
+
+            box-shadow: 0 0 0 3px rgba(24, 183, 160, 0.10);
+
+        }
+
+
+        /* ================= REASON ================= */
+
+        #reason {
+
+            background: #f1f5f8;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .button-section {
+
+            margin-top: 38px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #e8eef3;
+
+            text-align: center;
+
+        }
+
+
+        .save-btn {
+
+            min-width: 260px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #0da99a;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.22);
+
+        }
+
+
+        .save-btn:hover {
+
+            background: #078c80;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.28);
+
+        }
+
+
+        .back-btn {
+
+            display: block;
+
+            margin-top: 18px;
+
+            color: #0b7f82;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .back-btn:hover {
+
+            color: #075c60;
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+
+            background: #092b49;
+
+            border-top: 4px solid #18b7a0;
+
+            color: #d9e5ee;
+
+            text-align: center;
+
+            padding: 24px 15px;
+
+            font-size: 13px;
+
+            margin-top: auto;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .footer-main {
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .footer-sub {
+
+            color: #20c4ae;
+
+            font-size: 12px;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .header {
+
+                height: auto;
+
+                padding: 18px 5%;
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .nav {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .page {
+
+                width: 95%;
+
+                margin-top: 30px;
+
+            }
+
+
+            .form-container {
+
+                padding: 35px 30px;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-container {
+
+                padding: 30px 22px;
+
+            }
+
+
+            .form-heading h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .save-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .logo-text {
+
+                font-size: 18px;
+
+            }
+
+
+            .nav a {
+
+                padding: 8px 10px;
+
+                font-size: 12px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✚
+            </div>
+
+            <div class="logo-text">
+
+                HOSPITAL <span>MANAGEMENT SYSTEM</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/">
+                🏠 Dashboard
+            </a>
+
+            <a href="/doctors">
+                👨‍⚕️ Doctors
+            </a>
+
+            <a href="/patients">
+                👤 Patients
+            </a>
+
+            <a href="/appointments" class="active">
+                📅 Appointments
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+        <div class="form-container">
+
+
+            <!-- ================= FORM HEADING ================= -->
+
+            <div class="form-heading">
+
+                <h1>
+                    📅 Appointment Details
+                </h1>
+
+                <p>
+                    Schedule and manage patient appointments
+                </p>
+
+                <div class="title-line"></div>
+
+            </div>
+
+
+
+            <!-- ================= ERROR ================= -->
+
+            <div
+                class="error-message"
+                th:if="${errorMessage}"
+                th:text="${errorMessage}">
+            </div>
+
+
+
+            <!-- ================= FORM ================= -->
+
+            <form
+                th:action="@{/appointments/save}"
+                th:object="${appointment}"
+                method="post">
+
+
+                <!-- KEEP ID FOR EDIT -->
+
+                <input
+                    type="hidden"
+                    th:field="*{id}">
+
+
+
+                <!-- ================= FORM GRID ================= -->
+
+                <div class="form-grid">
+
+
+                    <!-- ================= PATIENT ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Patient
+                        </label>
+
+                        <select
+                            id="patientSelect"
+                            th:field="*{patient}"
+                            required>
+
+                            <option value="">
+                                -- Select Patient --
+                            </option>
+
+                            <option
+                                th:each="patient : ${patients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.name}"
+                                th:attr="data-reason=${patient.disease}">
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ================= DOCTOR ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Doctor
+                        </label>
+
+                        <select
+                            id="doctorSelect"
+                            th:field="*{doctor}"
+                            required>
+
+                            <option value="">
+                                -- Select Doctor --
+                            </option>
+
+                            <option
+                                th:each="doctor : ${doctors}"
+                                th:value="${doctor.id}"
+                                th:text="${doctor.name}">
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ================= DATE ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Appointment Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="appointmentDate"
+                            name="appointmentDate"
+                            th:value="${appointment.appointmentDate != null ? #temporals.format(appointment.appointmentDate, 'yyyy-MM-dd') : ''}"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= TIME ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Appointment Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="appointmentTime"
+                            name="appointmentTime"
+                            th:value="${appointment.appointmentTime != null ? #temporals.format(appointment.appointmentTime, 'HH:mm') : ''}"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= REASON ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Reason
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reason"
+                            th:field="*{reason}"
+                            placeholder="Select a patient first"
+                            readonly
+                            required>
+
+                    </div>
+
+
+
+                    <!-- ================= STATUS ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select
+                            th:field="*{status}"
+                            required>
+
+                            <option value="">
+                                -- Select Status --
+                            </option>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="Confirmed">
+                                Confirmed
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                            <option value="Cancelled">
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= BUTTONS ================= -->
+
+                <div class="button-section">
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        💾 Save Appointment
+
+                    </button>
+
+
+                    <a
+                        href="/appointments"
+                        class="back-btn">
+
+                        ← Back to Appointment List
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         EXISTING APPOINTMENT DATA
+         ===================================================== -->
+
+    <div
+        id="appointmentData"
+        style="display: none;">
+
+        <div
+            th:each="item : ${allAppointments}"
+            class="appointment-record"
+
+            th:attr="
+                data-id=${item.id},
+                data-patient=${item.patient != null ? item.patient.id : ''},
+                data-doctor=${item.doctor != null ? item.doctor.id : ''},
+                data-date=${item.appointmentDate},
+                data-time=${item.appointmentTime},
+                data-status=${item.status}">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-main">
+
+            © 2026 Hospital Management System. All Rights Reserved.
+
+        </div>
+
+        <div class="footer-sub">
+
+            Caring for Life • Committed to Excellence
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        const patientSelect =
+            document.getElementById("patientSelect");
+
+
+        const doctorSelect =
+            document.getElementById("doctorSelect");
+
+
+        const appointmentDate =
+            document.getElementById("appointmentDate");
+
+
+        const appointmentTime =
+            document.getElementById("appointmentTime");
+
+
+        const reasonInput =
+            document.getElementById("reason");
+
+
+
+        /* =====================================================
+           EXISTING APPOINTMENTS
+           ===================================================== */
+
+        const appointmentRecords =
+            document.querySelectorAll(
+                ".appointment-record"
+            );
+
+
+
+        /* =====================================================
+           ACTIVE APPOINTMENT
+           =====================================================
+
+           Pending and Confirmed block booking.
+
+           Completed and Cancelled do not block booking.
+        */
+
+        function isActive(status) {
+
+            return status === "Pending"
+                || status === "Confirmed";
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE REASON
+           =====================================================
+
+           Reason comes from Patient.
+
+           Example:
+
+           Patient → Dinesh
+           Patient Reason → Fever
+
+           Appointment Reason → Fever
+        */
+
+        function updateReason() {
+
+            const selectedOption =
+                patientSelect.options[
+                    patientSelect.selectedIndex
+                ];
+
+
+            if (
+                selectedOption &&
+                selectedOption.value !== ""
+            ) {
+
+                const reason =
+                    selectedOption.getAttribute(
+                        "data-reason"
+                    );
+
+
+                reasonInput.value =
+                    reason ? reason : "";
+
+            } else {
+
+                reasonInput.value = "";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE PATIENTS
+           =====================================================
+
+           A patient cannot have two active
+           appointments on the same date.
+
+           The current appointment is ignored
+           while editing.
+        */
+
+        function updatePatients() {
+
+            const selectedDate =
+                appointmentDate.value;
+
+
+            const currentAppointmentInput =
+                document.querySelector(
+                    'input[name="id"]'
+                );
+
+
+            const currentAppointmentId =
+                currentAppointmentInput
+                    ? currentAppointmentInput.value
+                    : "";
+
+
+
+            Array.from(
+                patientSelect.options
+            ).forEach(option => {
+
+
+                if (!option.value) {
+
+                    return;
+
+                }
+
+
+                const patientId =
+                    option.value;
+
+
+                let alreadyBooked = false;
+
+
+
+                appointmentRecords.forEach(record => {
+
+
+                    const recordPatient =
+                        record.getAttribute(
+                            "data-patient"
+                        );
+
+
+                    const recordDate =
+                        record.getAttribute(
+                            "data-date"
+                        );
+
+
+                    const recordStatus =
+                        record.getAttribute(
+                            "data-status"
+                        );
+
+
+                    const recordId =
+                        record.getAttribute(
+                            "data-id"
+                        );
+
+
+
+                    if (
+
+                        recordPatient === patientId &&
+
+                        recordDate === selectedDate &&
+
+                        isActive(recordStatus) &&
+
+                        recordId !== currentAppointmentId
+
+                    ) {
+
+                        alreadyBooked = true;
+
+                    }
+
+                });
+
+
+
+                option.hidden = alreadyBooked;
+
+
+            });
+
+
+
+            /* =================================================
+               DO NOT CLEAR THE CURRENT PATIENT WHILE EDITING
+
+               Only clear it if another appointment has
+               already taken that patient on this date.
+               ================================================= */
+
+            const selectedPatient =
+                patientSelect.value;
+
+
+            if (selectedPatient) {
+
+
+                const selectedOption =
+                    patientSelect.querySelector(
+                        'option[value="' +
+                        selectedPatient +
+                        '"]'
+                    );
+
+
+                if (
+                    selectedOption &&
+                    selectedOption.hidden
+                ) {
+
+                    patientSelect.value = "";
+
+                    reasonInput.value = "";
+
+                }
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE DOCTORS
+           =====================================================
+
+           A doctor cannot have two active appointments
+           at the same date and time.
+
+           Pending and Confirmed block the doctor.
+
+           Completed and Cancelled do not block the doctor.
+        */
+
+        function updateDoctors() {
+
+            const selectedDate =
+                appointmentDate.value;
+
+
+            const selectedTime =
+                appointmentTime.value;
+
+
+            const currentAppointmentInput =
+                document.querySelector(
+                    'input[name="id"]'
+                );
+
+
+            const currentAppointmentId =
+                currentAppointmentInput
+                    ? currentAppointmentInput.value
+                    : "";
+
+
+
+            Array.from(
+                doctorSelect.options
+            ).forEach(option => {
+
+
+                if (!option.value) {
+
+                    return;
+
+                }
+
+
+                const doctorId =
+                    option.value;
+
+
+                let alreadyBooked = false;
+
+
+
+                appointmentRecords.forEach(record => {
+
+
+                    const recordDoctor =
+                        record.getAttribute(
+                            "data-doctor"
+                        );
+
+
+                    const recordDate =
+                        record.getAttribute(
+                            "data-date"
+                        );
+
+
+                    const recordTime =
+                        record.getAttribute(
+                            "data-time"
+                        );
+
+
+                    const recordStatus =
+                        record.getAttribute(
+                            "data-status"
+                        );
+
+
+                    const recordId =
+                        record.getAttribute(
+                            "data-id"
+                        );
+
+
+
+                    if (
+
+                        recordDoctor === doctorId &&
+
+                        recordDate === selectedDate &&
+
+                        recordTime === selectedTime &&
+
+                        isActive(recordStatus) &&
+
+                        recordId !== currentAppointmentId
+
+                    ) {
+
+                        alreadyBooked = true;
+
+                    }
+
+                });
+
+
+
+                option.hidden = alreadyBooked;
+
+
+            });
+
+
+
+            /* =================================================
+               CLEAR DOCTOR ONLY IF ANOTHER APPOINTMENT
+               HAS ALREADY BOOKED THE SAME TIME.
+               ================================================= */
+
+            const selectedDoctor =
+                doctorSelect.value;
+
+
+            if (selectedDoctor) {
+
+
+                const selectedOption =
+                    doctorSelect.querySelector(
+                        'option[value="' +
+                        selectedDoctor +
+                        '"]'
+                    );
+
+
+                if (
+                    selectedOption &&
+                    selectedOption.hidden
+                ) {
+
+                    doctorSelect.value = "";
+
+                }
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           EVENT LISTENERS
+           ===================================================== */
+
+
+        patientSelect.addEventListener(
+            "change",
+            updateReason
+        );
+
+
+        appointmentDate.addEventListener(
+            "change",
+            function() {
+
+                updatePatients();
+
+                updateDoctors();
+
+            }
+        );
+
+
+        appointmentTime.addEventListener(
+            "change",
+            updateDoctors
+        );
+
+
+
+        /* =====================================================
+           INITIAL LOAD
+           =====================================================
+
+           This is important when editing.
+
+           It loads:
+
+           Patient
+           Doctor
+           Reason
+           Date
+           Time
+           Status
+        */
+
+        updateReason();
+
+        updatePatients();
+
+        updateDoctors();
+
+
+    </script>
+
+
+</body>
+
+</html>
