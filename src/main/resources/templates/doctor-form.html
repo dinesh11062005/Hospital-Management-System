@@ -1,409 +1,1385 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Doctor Form - Hospital Management</title>
 
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
     <style>
 
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
+
+
+        :root {
+
+            --navy: #062f55;
+
+            --navy-dark: #052844;
+
+            --navy-light: #0b4b73;
+
+            --teal: #13b9a8;
+
+            --teal-dark: #0b9f91;
+
+            --blue: #1688e8;
+
+            --text: #12375b;
+
+            --muted: #6d8498;
+
+            --border: #d7e4ec;
+
+            --background: #f3f8fc;
+
+            --white: #ffffff;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
 
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f8fb;
-            color: #172b4d;
+
+            font-family: "Outfit", sans-serif;
+
+            background:
+
+                linear-gradient(
+
+                    180deg,
+
+                    #f8fbfd 0%,
+
+                    #edf6fb 100%
+
+                );
+
+            color: var(--text);
+
             min-height: 100vh;
 
-            /* Keep footer at bottom */
             display: flex;
+
             flex-direction: column;
+
         }
 
 
-        /* ================= HEADER ================= */
+        /* =====================================================
+           HEADER
+           ===================================================== */
 
         .header {
-            height: 82px;
-            background: #092b49;
+
+            min-height: 82px;
+
+            padding: 0 4.4%;
+
+            background:
+
+                linear-gradient(
+
+                    105deg,
+
+                    var(--navy-dark),
+
+                    var(--navy-light)
+
+                );
+
+            border-bottom: 3px solid var(--teal);
+
+            box-shadow:
+
+                0 5px 20px
+
+                rgba(4, 38, 65, 0.20);
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            padding: 0 5%;
-
-            border-bottom: 4px solid #18b7a0;
-
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-
             flex-shrink: 0;
+
+            position: relative;
+
+            z-index: 10;
+
         }
 
 
-        /* ================= LOGO ================= */
+        /* =====================================================
+           LOGO
+           ===================================================== */
 
         .logo {
+
             display: flex;
+
             align-items: center;
-            gap: 12px;
+
+            gap: 13px;
+
+            text-decoration: none;
+
+            transition:
+
+                transform 0.25s ease;
+
         }
 
-        .logo-icon {
-            width: 42px;
-            height: 42px;
+
+        .logo:hover {
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        .logo img {
+
+            width: 48px;
+
+            height: 48px;
+
+            object-fit: contain;
+
+            border-radius: 12px;
 
             background: white;
-            color: #0da99a;
 
-            border-radius: 10px;
+            box-shadow:
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+                0 5px 15px
 
-            font-size: 25px;
-            font-weight: bold;
+                rgba(0, 0, 0, 0.15);
+
+            transition:
+
+                transform 0.3s ease;
+
         }
+
+
+        .logo:hover img {
+
+            transform:
+
+                scale(1.04)
+
+                rotate(-2deg);
+
+        }
+
 
         .logo-text {
+
             color: white;
-            font-size: 23px;
-            font-weight: 700;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.8px;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
         }
+
 
         .logo-text span {
-            color: #20c4ae;
-        }
 
+            color: #20c9b7;
 
-        /* ================= NAVIGATION ================= */
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #dce8f2;
-
-            padding: 11px 17px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
             font-weight: 600;
 
-            transition: 0.3s;
+            letter-spacing: 0.7px;
+
         }
+
+
+        /* =====================================================
+           NAVIGATION
+           ===================================================== */
+
+        .nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .nav a {
+
+            position: relative;
+
+            color: #dceaf3;
+
+            text-decoration: none;
+
+            padding: 12px 17px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+
+                color 0.25s ease,
+
+                background 0.25s ease,
+
+                transform 0.25s ease;
+
+        }
+
+
+        .nav a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 16px;
+
+            right: 16px;
+
+            bottom: 5px;
+
+            height: 2px;
+
+            border-radius: 5px;
+
+            background: #20c9b7;
+
+            transform:
+
+                scaleX(0);
+
+            transition:
+
+                transform 0.25s ease;
+
+        }
+
 
         .nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
+
             color: white;
+
+            background:
+
+                rgba(255,255,255,0.09);
+
+            transform:
+
+                translateY(-1px);
+
         }
 
-        .nav .active {
-            background: #0da99a;
-            color: white;
+
+        .nav a:hover::after {
+
+            transform:
+
+                scaleX(1);
+
         }
 
 
-        /* ================= PAGE ================= */
+        .nav a.active {
+
+            color: white;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #13b9a8,
+
+                    #0ca99a
+
+                );
+
+            box-shadow:
+
+                0 6px 18px
+
+                rgba(18,185,170,0.25);
+
+        }
+
+
+        .nav a.active::after {
+
+            display: none;
+
+        }
+
+
+        /* =====================================================
+           PAGE
+           ===================================================== */
 
         .page {
+
             width: 92%;
+
             max-width: 1100px;
 
-            margin: 45px auto 70px;
+            margin: 34px auto 55px;
 
-            /* Push footer to bottom */
             flex: 1;
+
         }
 
 
-        /* ================= FORM CONTAINER ================= */
+        /* =====================================================
+           FORM CONTAINER
+           ===================================================== */
 
         .form-container {
+
+            position: relative;
+
             background: white;
 
-            border-radius: 16px;
+            border:
 
-            padding: 40px 50px;
+                1px solid var(--border);
 
-            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
+            border-radius: 18px;
 
-            border: 1px solid #e4ebf1;
+            padding: 43px 50px;
+
+            box-shadow:
+
+                0 12px 35px
+
+                rgba(20,60,90,0.09);
+
+            overflow: hidden;
+
+            animation:
+
+                formAppear 0.45s ease both;
+
         }
 
 
-        /* ================= TITLE ================= */
+        .form-container::before {
 
-        .form-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
+            content: "";
 
-        .form-heading h1 {
-            font-size: 32px;
-            color: #102f4d;
-            margin-bottom: 8px;
-        }
+            position: absolute;
 
-        .form-heading p {
-            color: #718096;
-            font-size: 14px;
-        }
+            left: 0;
 
-        .title-line {
-            width: 55px;
+            top: 0;
+
+            width: 100%;
+
             height: 4px;
 
-            background: #18b7a0;
+            background:
 
-            border-radius: 10px;
+                linear-gradient(
 
-            margin: 14px auto 0;
+                    90deg,
+
+                    #13b9a8,
+
+                    #1688e8,
+
+                    #13b9a8
+
+                );
+
         }
 
 
-        /* ================= FORM GRID ================= */
+        /* =====================================================
+           FORM HEADING
+           ===================================================== */
 
-        .form-grid {
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 24px 30px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 8px;
-
-            font-size: 14px;
-            font-weight: 700;
-
-            color: #344e68;
-        }
-
-        input,
-        select {
-            width: 100%;
-            height: 48px;
-
-            padding: 0 14px;
-
-            border: 1px solid #d4dee7;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            font-family: inherit;
-
-            color: #263b53;
-
-            background: #fbfdff;
-
-            transition: 0.2s;
-        }
-
-        input::placeholder {
-            color: #9aa9b8;
-        }
-
-        input:hover,
-        select:hover {
-            border-color: #9bb8c4;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-
-            border: 2px solid #18a99a;
-
-            background: white;
-
-            box-shadow: 0 0 0 3px rgba(24, 183, 160, 0.10);
-        }
-
-
-        /* ================= BUTTONS ================= */
-
-        .button-section {
-            margin-top: 38px;
-
-            padding-top: 25px;
-
-            border-top: 1px solid #e8eef3;
+        .form-heading {
 
             text-align: center;
+
+            margin-bottom: 36px;
+
         }
 
-        .save-btn {
-            min-width: 260px;
 
-            height: 48px;
+        .form-heading h1 {
 
-            border: none;
+            color: #102f4d;
 
-            border-radius: 8px;
+            font-family:
 
-            background: #0da99a;
+                "Merriweather",
 
-            color: white;
+                serif;
+
+            font-size: 32px;
+
+            font-weight: 700;
+
+            line-height: 1.3;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .form-heading p {
+
+            color: #71869a;
 
             font-size: 15px;
 
-            font-family: inherit;
+            font-weight: 400;
+
+        }
+
+
+        .title-line {
+
+            width: 62px;
+
+            height: 4px;
+
+            margin: 15px auto 0;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    #13b9a8,
+
+                    #1688e8
+
+                );
+
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .error-message {
+
+            padding: 14px 17px;
+
+            margin-bottom: 26px;
+
+            border:
+
+                1px solid #f3c4c7;
+
+            border-radius: 10px;
+
+            background:
+
+                #fff1f2;
+
+            color:
+
+                #bd3039;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            animation:
+
+                errorIn 0.3s ease;
+
+        }
+
+
+        @keyframes errorIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+
+                    translateY(-5px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORM GRID
+           ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+
+                repeat(2, 1fr);
+
+            gap: 25px 28px;
+
+        }
+
+
+        .form-group {
+
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           LABEL
+           ===================================================== */
+
+        label {
+
+            margin-bottom: 9px;
+
+            color: #38536b;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.1px;
+
+        }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        input,
+
+        select {
+
+            width: 100%;
+
+            height: 52px;
+
+            padding:
+
+                0 16px;
+
+            border:
+
+                1px solid #d3e0e8;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background:
+
+                #f9fbfd;
+
+            color:
+
+                #23435e;
+
+            font-family:
+
+                "Outfit",
+
+                sans-serif;
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            transition:
+
+                border-color 0.25s ease,
+
+                background 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                transform 0.25s ease;
+
+        }
+
+
+        input::placeholder {
+
+            color:
+
+                #8ea2b2;
+
+        }
+
+
+        input:hover,
+
+        select:hover {
+
+            border-color:
+
+                #a7c2d0;
+
+            background:
+
+                #ffffff;
+
+        }
+
+
+        input:focus,
+
+        select:focus {
+
+            border-color:
+
+                var(--teal);
+
+            background:
+
+                #ffffff;
+
+            box-shadow:
+
+                0 0 0 4px
+
+                rgba(19,185,168,0.09);
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           SELECT
+           ===================================================== */
+
+        select {
+
+            cursor: pointer;
+
+            appearance: auto;
+
+        }
+
+
+        /* =====================================================
+           BUTTON SECTION
+           ===================================================== */
+
+        .button-section {
+
+            margin-top: 39px;
+
+            padding-top: 27px;
+
+            border-top:
+
+                1px solid #e5edf2;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+
+        /* =====================================================
+           SAVE BUTTON
+           ===================================================== */
+
+        .save-btn {
+
+            width: 280px;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #13b9a8,
+
+                    #0b9f91
+
+                );
+
+            color: white;
+
+            font-family:
+
+                "Outfit",
+
+                sans-serif;
+
+            font-size: 15px;
 
             font-weight: 700;
 
             cursor: pointer;
 
-            transition: 0.2s;
+            box-shadow:
 
-            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.22);
+                0 8px 18px
+
+                rgba(19,185,168,0.22);
+
+            transition:
+
+                transform 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                background 0.25s ease;
+
         }
+
 
         .save-btn:hover {
-            background: #078c80;
 
-            transform: translateY(-2px);
+            transform:
 
-            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.28);
+                translateY(-3px);
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #0b9f91,
+
+                    #07887d
+
+                );
+
+            box-shadow:
+
+                0 12px 24px
+
+                rgba(19,185,168,0.28);
+
         }
 
+
+        .save-btn:active {
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
         .back-btn {
-            display: block;
 
-            margin-top: 18px;
+            display: inline-flex;
 
-            color: #0b7f82;
+            align-items: center;
+
+            justify-content: center;
+
+            margin-top: 19px;
+
+            color:
+
+                #157c82;
 
             text-decoration: none;
 
             font-size: 14px;
 
-            font-weight: 600;
+            font-weight: 700;
+
+            transition:
+
+                color 0.25s ease,
+
+                transform 0.25s ease;
+
         }
+
 
         .back-btn:hover {
-            color: #075c60;
 
-            text-decoration: underline;
+            color:
+
+                #075d62;
+
+            transform:
+
+                translateY(-1px);
+
         }
 
 
-        /* ================= FOOTER ================= */
+        /* =====================================================
+           FOOTER
+           ===================================================== */
 
         .footer {
-            background: #092b49;
 
-            border-top: 4px solid #18b7a0;
+            position: relative;
 
-            color: #d9e5ee;
+            overflow: hidden;
+
+            min-height: 88px;
+
+            padding: 22px 15px;
+
+            background:
+
+                linear-gradient(
+
+                    105deg,
+
+                    #062b4d,
+
+                    #0a426c
+
+                );
+
+            border-top:
+
+                3px solid var(--teal);
+
+            color:
+
+                #dce8f0;
 
             text-align: center;
 
-            padding: 24px 15px;
+            font-size: 13px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .footer::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: -100px;
+
+            bottom: -70px;
+
+            width: 350px;
+
+            height: 100px;
+
+            border:
+
+                2px solid
+
+                rgba(19,184,166,0.22);
+
+            border-radius: 50%;
+
+        }
+
+
+        .footer::after {
+
+            content: "";
+
+            position: absolute;
+
+            right: 45px;
+
+            bottom: -15px;
+
+            width: 40px;
+
+            height: 40px;
+
+            border:
+
+                3px solid
+
+                rgba(19,210,190,0.28);
+
+            border-radius: 50%;
+
+        }
+
+
+        .footer-main,
+
+        .footer-sub {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .footer-main {
+
+            margin-bottom: 7px;
 
             font-size: 13px;
 
-            /* Keep footer at bottom */
-            margin-top: auto;
+            font-weight: 400;
 
-            flex-shrink: 0;
         }
 
-        .footer-main {
-            margin-bottom: 7px;
-        }
 
         .footer-sub {
-            color: #20c4ae;
+
+            color:
+
+                #20c4ae;
 
             font-size: 12px;
+
+            font-weight: 500;
+
         }
 
 
-        /* ================= RESPONSIVE ================= */
+        /* =====================================================
+           FORM ANIMATION
+           ===================================================== */
+
+        @keyframes formAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 850px
+           ===================================================== */
 
         @media (max-width: 850px) {
 
             .header {
-                height: auto;
 
-                padding: 18px 5%;
+                min-height: auto;
+
+                padding:
+
+                    16px 5%;
 
                 flex-direction: column;
 
                 gap: 15px;
+
             }
 
+
             .nav {
+
                 flex-wrap: wrap;
 
                 justify-content: center;
+
             }
+
 
             .page {
-                width: 95%;
 
-                margin-top: 30px;
+                width: 94%;
+
+                margin-top: 28px;
+
+                margin-bottom: 40px;
+
             }
+
 
             .form-container {
-                padding: 35px 30px;
+
+                padding:
+
+                    36px 30px;
+
             }
+
         }
 
+
+        /* =====================================================
+           RESPONSIVE 650px
+           ===================================================== */
 
         @media (max-width: 650px) {
 
             .form-grid {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+
+                    1fr;
+
+                gap: 21px;
+
             }
+
 
             .form-container {
-                padding: 30px 22px;
+
+                padding:
+
+                    31px 22px;
+
             }
+
 
             .form-heading h1 {
-                font-size: 27px;
+
+                font-size:
+
+                    27px;
+
             }
+
+
+            .form-heading p {
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            label {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            input,
+
+            select {
+
+                height:
+
+                    51px;
+
+                font-size:
+
+                    14px;
+
+            }
+
 
             .save-btn {
-                width: 100%;
+
+                width:
+
+                    100%;
+
             }
+
         }
 
+
+        /* =====================================================
+           RESPONSIVE 500px
+           ===================================================== */
 
         @media (max-width: 500px) {
 
             .logo-text {
-                font-size: 18px;
+
+                font-size:
+
+                    17px;
+
+                letter-spacing:
+
+                    0.6px;
+
             }
+
+
+            .logo img {
+
+                width:
+
+                    43px;
+
+                height:
+
+                    43px;
+
+            }
+
 
             .nav a {
-                padding: 8px 10px;
 
-                font-size: 12px;
+                padding:
+
+                    9px 11px;
+
+                font-size:
+
+                    12px;
+
             }
+
+
+            .form-container {
+
+                border-radius:
+
+                    14px;
+
+                padding:
+
+                    28px 17px;
+
+            }
+
+
+            .form-heading {
+
+                margin-bottom:
+
+                    29px;
+
+            }
+
+
+            .form-heading h1 {
+
+                font-size:
+
+                    24px;
+
+            }
+
+
+            .form-heading p {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            label {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            input,
+
+            select {
+
+                height:
+
+                    50px;
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            .save-btn {
+
+                height:
+
+                    51px;
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            .back-btn {
+
+                font-size:
+
+                    13px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 380px
+           ===================================================== */
+
+        @media (max-width: 380px) {
+
+            .logo-text {
+
+                font-size:
+
+                    15px;
+
+            }
+
+
+            .logo img {
+
+                width:
+
+                    40px;
+
+                height:
+
+                    40px;
+
+            }
+
+
+            .nav {
+
+                gap:
+
+                    3px;
+
+            }
+
+
+            .nav a {
+
+                padding:
+
+                    7px 8px;
+
+                font-size:
+
+                    11px;
+
+            }
+
         }
 
     </style>
@@ -414,394 +1390,605 @@
 <body>
 
 
-    <!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
 
-            <div class="logo-icon">
-                ✚
-            </div>
+    <a href="/" class="logo">
 
-            <div class="logo-text">
-                HOSPITAL <span>MANAGEMENT SYSTEM</span>
-            </div>
+        <img
+
+            src="/images/hospital-logo.png?v=20260908"
+
+            alt="Hospital Logo"
+
+        >
+
+
+        <div class="logo-text">
+
+            HOSPITAL
+
+            <span>MANAGEMENT SYSTEM</span>
+
+        </div>
+
+    </a>
+
+
+    <nav class="nav">
+
+
+        <a href="/">
+
+            Dashboard
+
+        </a>
+
+
+        <a
+
+            href="/doctors"
+
+            class="active">
+
+            Doctors
+
+        </a>
+
+
+        <a href="/patients">
+
+            Patients
+
+        </a>
+
+
+        <a href="/appointments">
+
+            Appointments
+
+        </a>
+
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+     ===================================================== -->
+
+<main class="page">
+
+
+    <div class="form-container">
+
+
+        <!-- =================================================
+             FORM HEADING
+             ================================================= -->
+
+        <div class="form-heading">
+
+
+            <h1>
+
+                Doctor Details
+
+            </h1>
+
+
+            <p>
+
+                Enter the doctor's professional and contact information
+
+            </p>
+
+
+            <div class="title-line"></div>
 
         </div>
 
 
-        <nav class="nav">
 
-            <a href="/">
-                🏠 Dashboard
-            </a>
+        <!-- =================================================
+             FORM
+             ================================================= -->
 
-            <a href="/doctors" class="active">
-                👨‍⚕️ Doctors
-            </a>
+        <form
 
-            <a href="/patients">
-                👤 Patients
-            </a>
+            th:action="@{/doctors/save}"
 
-            <a href="/appointments">
-                📅 Appointments
-            </a>
+            th:object="${doctor}"
 
-        </nav>
+            method="post">
 
-    </header>
 
+            <!-- KEEP ID FOR EDIT -->
 
+            <input
 
-    <!-- ================= PAGE ================= -->
+                type="hidden"
 
-    <main class="page">
+                th:field="*{id}">
 
-        <div class="form-container">
 
 
-            <!-- ================= FORM HEADING ================= -->
+            <!-- =================================================
+                 FORM GRID
+                 ================================================= -->
 
-            <div class="form-heading">
+            <div class="form-grid">
 
-                <h1>
-                    👨‍⚕️ Doctor Details
-                </h1>
 
-                <p>
-                    Enter the doctor's professional and contact information
-                </p>
+                <!-- DOCTOR NAME -->
 
-                <div class="title-line"></div>
+                <div class="form-group">
 
-            </div>
+                    <label>
 
+                        Doctor Name
 
+                    </label>
 
-            <!-- ================= FORM ================= -->
 
-            <form
-                th:action="@{/doctors/save}"
-                th:object="${doctor}"
-                method="post">
+                    <input
 
+                        type="text"
 
-                <!-- ================= IMPORTANT: KEEP ID FOR EDIT ================= -->
+                        th:field="*{name}"
 
-                <input type="hidden" th:field="*{id}">
+                        placeholder="Enter doctor name"
 
-
-
-                <div class="form-grid">
-
-
-                    <!-- ================= DOCTOR NAME ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Doctor Name
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{name}"
-                            placeholder="Enter doctor name"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= SPECIALIZATION ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Specialization
-                        </label>
-
-                        <select
-                            th:field="*{specialization}"
-                            required>
-
-                            <option value="">
-                                -- Select Specialization --
-                            </option>
-
-                            <option value="Cardiology">
-                                Cardiology
-                            </option>
-
-                            <option value="Neurology">
-                                Neurology
-                            </option>
-
-                            <option value="Orthopedics">
-                                Orthopedics
-                            </option>
-
-                            <option value="Dermatology">
-                                Dermatology
-                            </option>
-
-                            <option value="Pediatrics">
-                                Pediatrics
-                            </option>
-
-                            <option value="General Medicine">
-                                General Medicine
-                            </option>
-
-                            <option value="ENT">
-                                ENT
-                            </option>
-
-                            <option value="Dentistry">
-                                Dentistry
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ================= DEPARTMENT ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Department
-                        </label>
-
-                        <select
-                            th:field="*{department}"
-                            required>
-
-                            <option value="">
-                                -- Select Department --
-                            </option>
-
-                            <option value="Cardiology Department">
-                                Cardiology Department
-                            </option>
-
-                            <option value="Neurology Department">
-                                Neurology Department
-                            </option>
-
-                            <option value="Orthopedics Department">
-                                Orthopedics Department
-                            </option>
-
-                            <option value="Dermatology Department">
-                                Dermatology Department
-                            </option>
-
-                            <option value="Pediatrics Department">
-                                Pediatrics Department
-                            </option>
-
-                            <option value="General Medicine Department">
-                                General Medicine Department
-                            </option>
-
-                            <option value="Emergency Department">
-                                Emergency Department
-                            </option>
-
-                            <option value="ENT Department">
-                                ENT Department
-                            </option>
-
-                            <option value="Dental Department">
-                                Dental Department
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ================= PHONE ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Phone
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{phone}"
-                            placeholder="Enter phone number"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= EMAIL ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            th:field="*{email}"
-                            placeholder="Enter email address"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= SHIFT ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Shift Timing
-                        </label>
-
-                        <select
-                            th:field="*{shiftTiming}"
-                            required>
-
-                            <option value="">
-                                -- Select Shift --
-                            </option>
-
-                            <option value="Morning (6 AM - 12 PM)">
-                                Morning (6 AM - 12 PM)
-                            </option>
-
-                            <option value="Afternoon (12 PM - 6 PM)">
-                                Afternoon (12 PM - 6 PM)
-                            </option>
-
-                            <option value="Evening (6 PM - 12 AM)">
-                                Evening (6 PM - 12 AM)
-                            </option>
-
-                            <option value="Night (12 AM - 6 AM)">
-                                Night (12 AM - 6 AM)
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ================= EXPERIENCE ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Experience
-                        </label>
-
-                        <input
-                            type="number"
-                            th:field="*{experience}"
-                            placeholder="Years of experience"
-                            min="0"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= AVAILABILITY ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Availability
-                        </label>
-
-                        <select
-                            th:field="*{availability}"
-                            required>
-
-                            <option value="">
-                                -- Select Availability --
-                            </option>
-
-                            <option value="Available">
-                                Available
-                            </option>
-
-                            <option value="Not Available">
-                                Not Available
-                            </option>
-
-                            <option value="On Leave">
-                                On Leave
-                            </option>
-
-                        </select>
-
-                    </div>
-
+                        required>
 
                 </div>
 
 
 
-                <!-- ================= BUTTONS ================= -->
+                <!-- SPECIALIZATION -->
 
-                <div class="button-section">
+                <div class="form-group">
 
-                    <button
-                        type="submit"
-                        class="save-btn">
+                    <label>
 
-                        💾 Save Doctor
+                        Specialization
 
-                    </button>
+                    </label>
 
 
-                    <a
-                        href="/doctors"
-                        class="back-btn">
+                    <select
 
-                        ← Back to Doctor List
+                        th:field="*{specialization}"
 
-                    </a>
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Specialization --
+
+                        </option>
+
+
+                        <option value="Cardiology">
+
+                            Cardiology
+
+                        </option>
+
+
+                        <option value="Neurology">
+
+                            Neurology
+
+                        </option>
+
+
+                        <option value="Orthopedics">
+
+                            Orthopedics
+
+                        </option>
+
+
+                        <option value="Dermatology">
+
+                            Dermatology
+
+                        </option>
+
+
+                        <option value="Pediatrics">
+
+                            Pediatrics
+
+                        </option>
+
+
+                        <option value="General Medicine">
+
+                            General Medicine
+
+                        </option>
+
+
+                        <option value="ENT">
+
+                            ENT
+
+                        </option>
+
+
+                        <option value="Dentistry">
+
+                            Dentistry
+
+                        </option>
+
+
+                    </select>
 
                 </div>
 
 
-            </form>
 
-        </div>
+                <!-- DEPARTMENT -->
 
-    </main>
+                <div class="form-group">
+
+                    <label>
+
+                        Department
+
+                    </label>
+
+
+                    <select
+
+                        th:field="*{department}"
+
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Department --
+
+                        </option>
+
+
+                        <option value="Cardiology Department">
+
+                            Cardiology Department
+
+                        </option>
+
+
+                        <option value="Neurology Department">
+
+                            Neurology Department
+
+                        </option>
+
+
+                        <option value="Orthopedics Department">
+
+                            Orthopedics Department
+
+                        </option>
+
+
+                        <option value="Dermatology Department">
+
+                            Dermatology Department
+
+                        </option>
+
+
+                        <option value="Pediatrics Department">
+
+                            Pediatrics Department
+
+                        </option>
+
+
+                        <option value="General Medicine Department">
+
+                            General Medicine Department
+
+                        </option>
+
+
+                        <option value="Emergency Department">
+
+                            Emergency Department
+
+                        </option>
+
+
+                        <option value="ENT Department">
+
+                            ENT Department
+
+                        </option>
+
+
+                        <option value="Dental Department">
+
+                            Dental Department
+
+                        </option>
+
+
+                    </select>
+
+                </div>
 
 
 
-    <!-- ================= FOOTER ================= -->
+                <!-- PHONE -->
 
-    <footer class="footer">
+                <div class="form-group">
 
-        <div class="footer-main">
-            © 2026 Hospital Management System. All Rights Reserved.
-        </div>
+                    <label>
 
-        <div class="footer-sub">
-            Caring for Life • Committed to Excellence
-        </div>
+                        Phone Number
 
-    </footer>
+                    </label>
+
+
+                    <input
+
+                        type="tel"
+
+                        th:field="*{phone}"
+
+                        placeholder="Enter phone number"
+
+                        required>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Email
+
+                    </label>
+
+
+                    <input
+
+                        type="email"
+
+                        th:field="*{email}"
+
+                        placeholder="Enter email address"
+
+                        required>
+
+                </div>
+
+
+
+                <!-- SHIFT TIMING -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Shift Timing
+
+                    </label>
+
+
+                    <select
+
+                        th:field="*{shiftTiming}"
+
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Shift Timing --
+
+                        </option>
+
+
+                        <option value="Morning (6 AM - 12 PM)">
+
+                            Morning (6 AM - 12 PM)
+
+                        </option>
+
+
+                        <option value="Afternoon (12 PM - 6 PM)">
+
+                            Afternoon (12 PM - 6 PM)
+
+                        </option>
+
+
+                        <option value="Evening (6 PM - 12 AM)">
+
+                            Evening (6 PM - 12 AM)
+
+                        </option>
+
+
+                        <option value="Night (12 AM - 6 AM)">
+
+                            Night (12 AM - 6 AM)
+
+                        </option>
+
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Experience
+
+                    </label>
+
+
+                    <input
+
+                        type="number"
+
+                        th:field="*{experience}"
+
+                        placeholder="Enter experience in years"
+
+                        min="0"
+
+                        required>
+
+                </div>
+
+
+
+                <!-- AVAILABILITY -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Availability
+
+                    </label>
+
+
+                    <select
+
+                        th:field="*{availability}"
+
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Availability --
+
+                        </option>
+
+
+                        <option value="Available">
+
+                            Available
+
+                        </option>
+
+
+                        <option value="Not Available">
+
+                            Not Available
+
+                        </option>
+
+
+                        <option value="On Leave">
+
+                            On Leave
+
+                        </option>
+
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUTTONS
+                 ================================================= -->
+
+            <div class="button-section">
+
+
+                <button
+
+                    type="submit"
+
+                    class="save-btn">
+
+                    Save Doctor
+
+                </button>
+
+
+                <a
+
+                    href="/doctors"
+
+                    class="back-btn">
+
+                    Back to Doctor List
+
+                </a>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-main">
+
+        © 2026 Hospital Management System.
+
+        All Rights Reserved.
+
+    </div>
+
+
+    <div class="footer-sub">
+
+        Caring for Life • Committed to Excellence
+
+    </div>
+
+
+</footer>
 
 
 </body>

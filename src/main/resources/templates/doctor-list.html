@@ -10,7 +10,17 @@
 
     <title>Doctors - Hospital Management</title>
 
+    <!-- GOOGLE FONTS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
     <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
 
         * {
             margin: 0;
@@ -18,389 +28,858 @@
             box-sizing: border-box;
         }
 
+
+        /* =====================================================
+           BODY
+           ===================================================== */
+
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f8fb;
+            font-family: "Outfit", sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #f4f9fc,
+                #edf7f8
+            );
+
             color: #172b4d;
+
             min-height: 100vh;
 
-            /* Footer stays at the bottom */
             display: flex;
             flex-direction: column;
         }
 
-        /* ================= HEADER ================= */
 
-        .header {
-            height: 82px;
-            background: #092b49;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            border-bottom: 4px solid #18b7a0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
+		/* ================= HEADER ================= */
+
+		.header {
+		    min-height: 82px;
+
+		    padding: 0 4.4%;
+
+		    background:
+		        linear-gradient(
+		            105deg,
+		            #052844,
+		            #0b4b73
+		        );
+
+		    border-bottom: 3px solid #13b9a8;
+
+		    box-shadow:
+		        0 5px 20px
+		        rgba(4, 38, 65, 0.20);
+
+		    display: flex;
+
+		    align-items: center;
+
+		    justify-content: space-between;
+
+		    flex-shrink: 0;
+
+		    position: relative;
+
+		    z-index: 10;
+		}
+
+        /* =====================================================
+           LOGO
+           ===================================================== */
 
         .logo {
             display: flex;
+
             align-items: center;
-            gap: 12px;
+
+            gap: 13px;
         }
 
-        .logo-icon {
-            width: 42px;
-            height: 42px;
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+
+            object-fit: contain;
+
             background: white;
-            color: #0a9f91;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
-            font-weight: bold;
+
+            border-radius: 12px;
+
+            padding: 3px;
+
+            transition: 0.3s ease;
         }
+
+
+        .logo:hover img {
+            transform: scale(1.04);
+        }
+
 
         .logo-text {
             color: white;
+
+            font-family: "Outfit", sans-serif;
+
             font-size: 23px;
-            font-weight: 700;
+
+            font-weight: 800;
+
             letter-spacing: 0.5px;
+
+            white-space: nowrap;
         }
+
 
         .logo-text span {
             color: #20c4ae;
         }
 
-        /* ================= NAVIGATION ================= */
 
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+		/* ================= NAVIGATION ================= */
 
-        .nav a {
-            text-decoration: none;
-            color: #dce8f2;
-            padding: 11px 17px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+		.nav {
+		    display: flex;
+		    align-items: center;
+		    gap: 6px;
+		}
 
-        .nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
+		.nav a {
+		    position: relative;
+		    color: #dceaf3;
+		    text-decoration: none;
+		    padding: 11px 16px;
+		    border-radius: 9px;
+		    font-size: 14px;
+		    font-weight: 600;
 
-        .nav .active {
-            background: #0da99a;
-            color: white;
-        }
+		    transition:
+		        color 0.25s ease,
+		        background 0.25s ease,
+		        transform 0.25s ease;
+		}
 
-        /* ================= MAIN ================= */
+		/* TEAL UNDERLINE */
+		.nav a::after {
+		    content: "";
+
+		    position: absolute;
+
+		    left: 16px;
+		    right: 16px;
+		    bottom: 5px;
+
+		    height: 2px;
+
+		    background: #20c9b7;
+
+		    border-radius: 5px;
+
+		    transform: scaleX(0);
+		    transform-origin: center;
+
+		    transition:
+		        transform 0.25s ease;
+		}
+
+		/* HOVER */
+		.nav a:hover {
+		    background: rgba(255, 255, 255, 0.09);
+		    color: white;
+		    transform: translateY(-1px);
+		}
+
+		/* SHOW UNDERLINE ON HOVER */
+		.nav a:hover::after {
+		    transform: scaleX(1);
+		}
+
+		/* ACTIVE PAGE */
+		.nav a.active {
+		    color: white;
+
+		    background:
+		        linear-gradient(
+		            135deg,
+		            #13b9a8,
+		            #0ca99a
+		        );
+
+		    box-shadow:
+		        0 6px 18px
+		        rgba(18, 185, 170, 0.25);
+		}
+
+		/* DON'T SHOW UNDERLINE FOR ACTIVE PAGE */
+		.nav a.active::after {
+		    display: none;
+		}
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
 
         .main {
-            width: 92%;
-            max-width: 1450px;
-            margin: 50px auto 80px;
+            width: 94%;
 
-            /* Pushes footer to bottom */
+            max-width: 1500px;
+
+            margin: 32px auto 35px;
+
             flex: 1;
         }
 
-        /* ================= PAGE TITLE ================= */
+
+        /* =====================================================
+           PAGE HEADING
+           ===================================================== */
 
         .page-heading {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            margin-bottom: 30px;
+
+            margin-bottom: 22px;
         }
+
 
         .heading-left h1 {
-            font-size: 34px;
+            font-family: "Merriweather", serif;
+
+            font-size: 30px;
+
             font-weight: 700;
+
             color: #102f4d;
-            margin-bottom: 7px;
+
+            margin-bottom: 6px;
         }
+
 
         .heading-left p {
-            color: #718096;
-            font-size: 15px;
+            color: #71859a;
+
+            font-size: 14px;
         }
 
-        .heading-icon {
-            color: #0da99a;
-            margin-right: 8px;
-        }
 
-        /* ================= ADD BUTTON ================= */
+        /* =====================================================
+           ADD BUTTON
+           ===================================================== */
 
         .add-btn {
             text-decoration: none;
-            background: #0da99a;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #18b7a0,
+                #0da99a
+            );
+
             color: white;
-            padding: 13px 22px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.25);
-            transition: 0.3s;
+
+            padding: 12px 20px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 6px 16px rgba(13, 169, 154, 0.22);
+
+            transition: all 0.3s ease;
         }
+
 
         .add-btn:hover {
-            background: #078c80;
+            background: linear-gradient(
+                135deg,
+                #0da99a,
+                #078c80
+            );
+
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.3);
+
+            box-shadow:
+                0 10px 22px rgba(13, 169, 154, 0.30);
         }
 
-        /* ================= TABLE CARD ================= */
+
+        /* =====================================================
+           TABLE CARD
+           ===================================================== */
 
         .table-card {
             background: white;
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
-            border: 1px solid #e4ebf1;
+
+            border-radius: 15px;
+
+            padding: 14px;
+
+            border: 1px solid #dce8ef;
+
+            box-shadow:
+                0 12px 35px rgba(20, 50, 80, 0.09);
+
             overflow-x: auto;
+
+            animation: tableAppear 0.45s ease;
         }
+
+
+        @keyframes tableAppear {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           TABLE
+           ===================================================== */
 
         table {
             width: 100%;
+
+            min-width: 1180px;
+
+            table-layout: fixed;
+
             border-collapse: separate;
+
             border-spacing: 0;
-            min-width: 1100px;
         }
 
-        /* ================= TABLE HEADER ================= */
+
+        /* =====================================================
+           TABLE HEADER
+           ===================================================== */
 
         thead th {
             background: #0b7f82;
+
             color: white;
-            padding: 15px 12px;
-            font-size: 13px;
-            font-weight: 600;
+
+            height: 46px;
+
+            padding: 10px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
             text-align: center;
-            letter-spacing: 0.2px;
+
+            white-space: nowrap;
         }
+
 
         thead th:first-child {
             border-radius: 8px 0 0 8px;
         }
 
+
         thead th:last-child {
             border-radius: 0 8px 8px 0;
         }
 
-        /* ================= TABLE BODY ================= */
+
+        /* =====================================================
+           TABLE BODY
+           ===================================================== */
 
         tbody td {
-            padding: 16px 12px;
+            height: 58px;
+
+            padding: 10px;
+
             text-align: center;
-            font-size: 14px;
+
+            font-size: 13px;
+
             color: #334e68;
-            border-bottom: 1px solid #e8eef3;
+
+            border-bottom: 1px solid #e7eef3;
+
             white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
         }
+
 
         tbody tr {
-            transition: 0.2s;
+            transition: background 0.25s ease;
         }
 
+
         tbody tr:hover {
-            background: #f7fbfc;
+            background: #f5fbfb;
         }
+
 
         tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* ================= ID ================= */
+
+        /* =====================================================
+           ID
+           ===================================================== */
 
         .id-badge {
             display: inline-flex;
-            width: 30px;
-            height: 30px;
+
+            width: 29px;
+
+            height: 29px;
+
             align-items: center;
+
             justify-content: center;
+
             border-radius: 50%;
-            background: #e8f5f4;
+
+            background: #e7f5f4;
+
             color: #087f78;
-            font-weight: 700;
+
+            font-size: 12px;
+
+            font-weight: 800;
         }
 
-        /* ================= DOCTOR NAME ================= */
+
+        /* =====================================================
+           DOCTOR NAME
+           ===================================================== */
 
         .doctor-name {
             font-weight: 700;
+
             color: #193b5a;
         }
 
-        /* ================= SPECIALIZATION ================= */
+
+        /* =====================================================
+           SPECIALIZATION
+           ===================================================== */
 
         .specialization {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 5px 10px;
+
+            border-radius: 18px;
+
             background: #e7f7f4;
+
             color: #078276;
-            font-size: 12px;
+
+            font-size: 11px;
+
             font-weight: 700;
         }
 
-        /* ================= EXPERIENCE ================= */
+
+        /* =====================================================
+           EXPERIENCE
+           ===================================================== */
 
         .experience {
-            font-weight: 600;
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4px;
+
+            padding: 5px 9px;
+
+            border-radius: 16px;
+
+            background: #f1f5f8;
+
             color: #435b73;
-        }
 
-        /* ================= AVAILABILITY ================= */
+            font-size: 11px;
 
-        .available {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: #e8f7ed;
-            color: #168447;
-            font-size: 12px;
             font-weight: 700;
         }
+
+
+        /* =====================================================
+           AVAILABILITY
+           ===================================================== */
+
+        .available {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 5px 10px;
+
+            border-radius: 18px;
+
+            background: #e8f7ed;
+
+            color: #168447;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
 
         .available::before {
             content: "●";
+
             margin-right: 5px;
-            font-size: 9px;
+
+            font-size: 8px;
         }
 
-        /* ================= ACTIONS ================= */
+
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
 
         .actions {
             display: flex;
+
+            align-items: center;
+
             justify-content: center;
-            gap: 8px;
+
+            gap: 7px;
         }
+
 
         .edit-btn,
         .delete-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 60px;
+
+            height: 30px;
+
+            padding: 0 10px;
+
+            border-radius: 7px;
+
             text-decoration: none;
-            padding: 8px 13px;
-            border-radius: 6px;
-            font-size: 12px;
+
+            font-size: 11px;
+
             font-weight: 700;
-            transition: 0.2s;
+
+            transition: all 0.25s ease;
         }
+
 
         .edit-btn {
-            background: #f4b942;
-            color: #25313c;
+            background: #fff4d8;
+
+            color: #9a6b00;
+
+            border: 1px solid #f1d48a;
         }
 
-        .delete-btn {
-            background: #e5484d;
-            color: white;
-        }
 
         .edit-btn:hover {
-            background: #e2a72f;
-            transform: translateY(-1px);
+            background: #f4c75c;
+
+            color: #513b00;
+
+            transform: translateY(-2px);
         }
+
+
+        .delete-btn {
+            background: #ffe7e8;
+
+            color: #c9363c;
+
+            border: 1px solid #f2b7ba;
+        }
+
 
         .delete-btn:hover {
-            background: #c9363c;
-            transform: translateY(-1px);
+            background: #e5484d;
+
+            color: white;
+
+            border-color: #e5484d;
+
+            transform: translateY(-2px);
         }
 
-        /* ================= EMPTY MESSAGE ================= */
+
+        /* =====================================================
+           EMPTY MESSAGE
+           ===================================================== */
 
         .empty-message {
-            padding: 60px 20px;
+            padding: 50px 20px;
+
             text-align: center;
+
             color: #718096;
         }
 
-        .empty-message .icon {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 10px;
+
+        .empty-icon {
+            width: 52px;
+
+            height: 52px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            background: #e8f7f5;
+
+            border: 1px solid #c7ebe5;
+
+            position: relative;
         }
+
+
+        .empty-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 20px;
+
+            border: 3px solid #18b7a0;
+
+            border-radius: 50%;
+
+            left: 13px;
+
+            top: 8px;
+        }
+
+
+        .empty-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 27px;
+
+            height: 10px;
+
+            border: 3px solid #18b7a0;
+
+            border-bottom: none;
+
+            border-radius: 15px 15px 0 0;
+
+            left: 10px;
+
+            bottom: 7px;
+        }
+
 
         .empty-message p {
-            font-size: 16px;
+            font-size: 15px;
+
+            font-weight: 600;
         }
 
-        /* ================= FOOTER ================= */
 
-        .footer {
-            background: #092b49;
-            border-top: 4px solid #18b7a0;
-            color: #d9e5ee;
-            text-align: center;
-            padding: 24px 15px;
-            font-size: 13px;
+		.footer {
+		         min-height: 84px;
 
-            /* Footer stays at bottom */
-            margin-top: auto;
-        }
+		         position: relative;
 
-        .footer-main {
-            font-size: 14px;
-            margin-bottom: 7px;
-        }
+		         overflow: hidden;
 
-        .footer-sub {
-            color: #20c4ae;
-            font-size: 12px;
-        }
+		         background:
+		             linear-gradient(
+		                 105deg,
+		                 #062b4d,
+		                 #0a426c
+		             );
 
-        /* ================= RESPONSIVE ================= */
+		         border-top:
+		             3px solid var(--teal);
 
-        @media (max-width: 850px) {
+		         color: #dce8f0;
+
+		         text-align: center;
+
+		         padding: 20px 15px;
+
+		         font-size: 12px;
+		     }
+
+
+		     .footer::before {
+		         content: "";
+
+		         position: absolute;
+
+		         width: 360px;
+		         height: 100px;
+
+		         left: -110px;
+		         bottom: -70px;
+
+		         border:
+		             2px solid
+		             rgba(19, 184, 166, 0.24);
+
+		         border-radius: 50%;
+		     }
+
+
+		     .footer::after {
+		         content: "";
+
+		         position: absolute;
+
+		         right: 38px;
+		         bottom: -11px;
+
+		         width: 35px;
+		         height: 35px;
+
+		         border:
+		             3px solid
+		             rgba(19, 210, 190, 0.40);
+
+		         border-radius: 50%;
+		     }
+
+
+		     .footer-main,
+		     .footer-sub {
+		         position: relative;
+
+		         z-index: 2;
+		     }
+
+
+		     .footer-main {
+		         margin-bottom: 6px;
+
+		         font-weight: 400;
+		     }
+
+
+		     .footer-sub {
+		         color: #20c4b1;
+
+		         font-size: 11px;
+
+		         font-weight: 500;
+
+		         letter-spacing: 0.2px;
+		     }
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
 
             .header {
                 height: auto;
-                padding: 18px 5%;
+
+                padding: 16px 5%;
+
                 flex-direction: column;
-                gap: 15px;
+
+                gap: 14px;
             }
+
 
             .nav {
                 flex-wrap: wrap;
+
                 justify-content: center;
             }
 
+
+            .main {
+                width: 95%;
+
+                margin-top: 25px;
+            }
+
+
             .page-heading {
                 flex-direction: column;
+
                 align-items: flex-start;
-                gap: 20px;
+
+                gap: 16px;
             }
+
 
             .add-btn {
                 align-self: flex-start;
             }
-
-            .heading-left h1 {
-                font-size: 28px;
-            }
-
-            .main {
-                width: 95%;
-            }
         }
 
-        @media (max-width: 500px) {
+
+        @media (max-width: 600px) {
 
             .logo-text {
                 font-size: 18px;
             }
 
+
+            .logo img {
+                width: 42px;
+
+                height: 42px;
+            }
+
+
             .nav a {
                 padding: 8px 10px;
+
                 font-size: 12px;
             }
+
 
             .heading-left h1 {
                 font-size: 25px;
@@ -411,40 +890,48 @@
 
 </head>
 
+
 <body>
 
-    <!-- ================= HEADER ================= -->
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <header class="header">
 
         <div class="logo">
 
-            <div class="logo-icon">
-                ✚
-            </div>
+            <img
+                src="/images/hospital-logo.png?v=20260908"
+                alt="Hospital Logo">
 
             <div class="logo-text">
-                HOSPITAL <span>MANAGEMENT SYSTEM</span>
+
+                HOSPITAL
+                <span>MANAGEMENT SYSTEM</span>
+
             </div>
 
         </div>
 
+
         <nav class="nav">
 
             <a href="/">
-                🏠 Dashboard
+                Dashboard
             </a>
 
             <a href="/doctors" class="active">
-                👨‍⚕️ Doctors
+                Doctors
             </a>
 
             <a href="/patients">
-                👤 Patients
+                Patients
             </a>
 
             <a href="/appointments">
-                📅 Appointments
+                Appointments
             </a>
 
         </nav>
@@ -452,18 +939,18 @@
     </header>
 
 
-    <!-- ================= MAIN ================= -->
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
 
     <main class="main">
 
-        <!-- PAGE HEADING -->
 
         <div class="page-heading">
 
             <div class="heading-left">
 
                 <h1>
-                    <span class="heading-icon">👨‍⚕️</span>
                     Doctor List
                 </h1>
 
@@ -473,32 +960,64 @@
 
             </div>
 
-            <a href="/doctors/new" class="add-btn">
-                ＋ Add Doctor
+
+            <a
+                href="/doctors/new"
+                class="add-btn">
+
+                + Add Doctor
+
             </a>
 
         </div>
 
 
-        <!-- ================= TABLE ================= -->
+        <!-- =================================================
+             TABLE
+             ================================================= -->
 
         <div class="table-card">
 
             <table>
+
+                <colgroup>
+
+                    <col style="width: 6%;">
+                    <col style="width: 12%;">
+                    <col style="width: 12%;">
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 15%;">
+                    <col style="width: 12%;">
+                    <col style="width: 8%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+
+                </colgroup>
+
 
                 <thead>
 
                     <tr>
 
                         <th>ID</th>
+
                         <th>Doctor Name</th>
+
                         <th>Specialization</th>
+
                         <th>Department</th>
+
                         <th>Phone</th>
+
                         <th>Email</th>
+
                         <th>Shift Timing</th>
+
                         <th>Experience</th>
+
                         <th>Availability</th>
+
                         <th>Actions</th>
 
                     </tr>
@@ -508,48 +1027,62 @@
 
                 <tbody>
 
-                    <!-- DOCTOR DATA -->
 
                     <tr th:each="doctor : ${doctors}">
+
 
                         <td>
 
                             <span
                                 class="id-badge"
                                 th:text="${doctor.id}">
+
                             </span>
 
                         </td>
 
+
                         <td
                             class="doctor-name"
                             th:text="${doctor.name}">
+
                         </td>
+
 
                         <td>
 
                             <span
                                 class="specialization"
                                 th:text="${doctor.specialization}">
+
                             </span>
 
                         </td>
 
+
                         <td
                             th:text="${doctor.department}">
+
                         </td>
+
 
                         <td
                             th:text="${doctor.phone}">
+
                         </td>
+
 
                         <td
                             th:text="${doctor.email}">
+
                         </td>
+
 
                         <td
                             th:text="${doctor.shiftTiming}">
+
                         </td>
+
 
                         <td>
 
@@ -565,14 +1098,17 @@
 
                         </td>
 
+
                         <td>
 
                             <span
                                 class="available"
                                 th:text="${doctor.availability}">
+
                             </span>
 
                         </td>
+
 
                         <td>
 
@@ -581,24 +1117,28 @@
                                 <a
                                     th:href="@{/doctors/edit/{id}(id=${doctor.id})}"
                                     class="edit-btn">
-                                    ✎ Edit
+
+                                    Edit
+
                                 </a>
+
 
                                 <a
                                     th:href="@{/doctors/delete/{id}(id=${doctor.id})}"
                                     class="delete-btn"
                                     onclick="return confirm('Are you sure you want to delete this doctor?')">
-                                    🗑 Delete
+
+                                    Delete
+
                                 </a>
 
                             </div>
 
                         </td>
 
+
                     </tr>
 
-
-                    <!-- EMPTY TABLE -->
 
                     <tr th:if="${#lists.isEmpty(doctors)}">
 
@@ -606,9 +1146,7 @@
 
                             <div class="empty-message">
 
-                                <span class="icon">
-                                    🩺
-                                </span>
+                                <div class="empty-icon"></div>
 
                                 <p>
                                     No doctors found
@@ -620,6 +1158,7 @@
 
                     </tr>
 
+
                 </tbody>
 
             </table>
@@ -629,19 +1168,27 @@
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
     <footer class="footer">
 
         <div class="footer-main">
-            © 2026 Hospital Management System. All Rights Reserved.
+
+            © 2026 Hospital Management System.
+            All Rights Reserved.
+
         </div>
 
         <div class="footer-sub">
+
             Caring for Life • Committed to Excellence
+
         </div>
 
     </footer>
+
 
 </body>
 

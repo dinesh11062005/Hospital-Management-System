@@ -1,382 +1,1400 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Patient Form - Hospital Management</title>
 
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
     <style>
 
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
+
+
+        :root {
+
+            --navy: #062f55;
+
+            --navy-dark: #052844;
+
+            --navy-light: #0b4b73;
+
+            --teal: #13b9a8;
+
+            --teal-dark: #0b9f91;
+
+            --blue: #1688e8;
+
+            --text: #12375b;
+
+            --muted: #6d8498;
+
+            --border: #d7e4ec;
+
+            --background: #f3f8fc;
+
+            --white: #ffffff;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
 
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f8fb;
-            color: #172b4d;
+
+            font-family: "Outfit", sans-serif;
+
+            background:
+
+                linear-gradient(
+
+                    180deg,
+
+                    #f8fbfd 0%,
+
+                    #edf6fb 100%
+
+                );
+
+            color: var(--text);
+
             min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
         }
 
-        /* ================= HEADER ================= */
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
 
         .header {
-            height: 82px;
-            background: #092b49;
+
+            min-height: 82px;
+
+            padding: 0 4.4%;
+
+            background:
+
+                linear-gradient(
+
+                    105deg,
+
+                    var(--navy-dark),
+
+                    var(--navy-light)
+
+                );
+
+            border-bottom: 3px solid var(--teal);
+
+            box-shadow:
+
+                0 5px 20px
+
+                rgba(4, 38, 65, 0.20);
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            padding: 0 5%;
+            flex-shrink: 0;
 
-            border-bottom: 4px solid #18b7a0;
+            position: relative;
 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+
         }
+
+
+        /* =====================================================
+           LOGO
+           ===================================================== */
 
         .logo {
+
             display: flex;
+
             align-items: center;
-            gap: 12px;
+
+            gap: 13px;
+
+            text-decoration: none;
+
+            transition:
+
+                transform 0.25s ease;
+
         }
 
-        .logo-icon {
-            width: 42px;
-            height: 42px;
+
+        .logo:hover {
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        .logo img {
+
+            width: 48px;
+
+            height: 48px;
+
+            object-fit: contain;
+
+            border-radius: 12px;
 
             background: white;
-            color: #0da99a;
 
-            border-radius: 10px;
+            box-shadow:
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+                0 5px 15px
 
-            font-size: 25px;
-            font-weight: bold;
+                rgba(0, 0, 0, 0.15);
+
+            transition:
+
+                transform 0.3s ease;
+
         }
+
+
+        .logo:hover img {
+
+            transform:
+
+                scale(1.04)
+
+                rotate(-2deg);
+
+        }
+
 
         .logo-text {
+
             color: white;
-            font-size: 23px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.8px;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
         }
+
 
         .logo-text span {
-            color: #20c4ae;
-        }
 
-        /* ================= NAVIGATION ================= */
+            color: #20c9b7;
 
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #dce8f2;
-
-            padding: 11px 17px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
             font-weight: 600;
 
-            transition: 0.3s;
+            letter-spacing: 0.7px;
+
         }
+
+
+        /* =====================================================
+           NAVIGATION
+           ===================================================== */
+
+        .nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .nav a {
+
+            position: relative;
+
+            color: #dceaf3;
+
+            text-decoration: none;
+
+            padding: 12px 17px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+
+                color 0.25s ease,
+
+                background 0.25s ease,
+
+                transform 0.25s ease;
+
+        }
+
+
+        .nav a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 16px;
+
+            right: 16px;
+
+            bottom: 5px;
+
+            height: 2px;
+
+            border-radius: 5px;
+
+            background: #20c9b7;
+
+            transform:
+
+                scaleX(0);
+
+            transition:
+
+                transform 0.25s ease;
+
+        }
+
 
         .nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
+
             color: white;
+
+            background:
+
+                rgba(255,255,255,0.09);
+
+            transform:
+
+                translateY(-1px);
+
         }
 
-        .nav .active {
-            background: #0da99a;
-            color: white;
+
+        .nav a:hover::after {
+
+            transform:
+
+                scaleX(1);
+
         }
 
-        /* ================= PAGE ================= */
+
+        .nav a.active {
+
+            color: white;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #13b9a8,
+
+                    #0ca99a
+
+                );
+
+            box-shadow:
+
+                0 6px 18px
+
+                rgba(18,185,170,0.25);
+
+        }
+
+
+        .nav a.active::after {
+
+            display: none;
+
+        }
+
+
+        /* =====================================================
+           PAGE
+           ===================================================== */
 
         .page {
+
             width: 92%;
+
             max-width: 1100px;
 
-            margin: 45px auto 70px;
+            margin: 34px auto 55px;
+
+            flex: 1;
+
         }
 
-        /* ================= FORM CONTAINER ================= */
+
+        /* =====================================================
+           FORM CONTAINER
+           ===================================================== */
 
         .form-container {
+
+            position: relative;
+
             background: white;
 
-            border-radius: 16px;
+            border:
 
-            padding: 40px 50px;
+                1px solid var(--border);
 
-            box-shadow: 0 8px 30px rgba(20, 50, 80, 0.10);
+            border-radius: 18px;
 
-            border: 1px solid #e4ebf1;
+            padding: 43px 50px;
+
+            box-shadow:
+
+                0 12px 35px
+
+                rgba(20,60,90,0.09);
+
+            overflow: hidden;
+
+            animation:
+
+                formAppear 0.45s ease both;
+
         }
 
-        /* ================= FORM HEADING ================= */
 
-        .form-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
+        .form-container::before {
 
-        .form-heading h1 {
-            font-size: 32px;
-            color: #102f4d;
-            margin-bottom: 8px;
-        }
+            content: "";
 
-        .form-heading p {
-            color: #718096;
-            font-size: 14px;
-        }
+            position: absolute;
 
-        .title-line {
-            width: 55px;
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
             height: 4px;
 
-            background: #18b7a0;
+            background:
 
-            border-radius: 10px;
+                linear-gradient(
 
-            margin: 14px auto 0;
+                    90deg,
+
+                    #13b9a8,
+
+                    #1688e8,
+
+                    #13b9a8
+
+                );
+
         }
 
-        /* ================= FORM GRID ================= */
 
-        .form-grid {
-            display: grid;
+        /* =====================================================
+           FORM HEADING
+           ===================================================== */
 
-            grid-template-columns: 1fr 1fr;
-
-            gap: 24px 30px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 8px;
-
-            font-size: 14px;
-            font-weight: 700;
-
-            color: #344e68;
-        }
-
-        input,
-        select {
-            width: 100%;
-            height: 48px;
-
-            padding: 0 14px;
-
-            border: 1px solid #d4dee7;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            font-family: inherit;
-
-            color: #263b53;
-
-            background: #fbfdff;
-
-            transition: 0.2s;
-        }
-
-        input::placeholder {
-            color: #9aa9b8;
-        }
-
-        input:hover,
-        select:hover {
-            border-color: #9bb8c4;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-
-            border: 2px solid #18a99a;
-
-            background: white;
-
-            box-shadow: 0 0 0 3px rgba(24, 183, 160, 0.10);
-        }
-
-        /* ================= BUTTONS ================= */
-
-        .button-section {
-            margin-top: 38px;
-
-            padding-top: 25px;
-
-            border-top: 1px solid #e8eef3;
+        .form-heading {
 
             text-align: center;
+
+            margin-bottom: 36px;
+
         }
 
-        .save-btn {
-            min-width: 260px;
 
-            height: 48px;
+        .form-heading h1 {
 
-            border: none;
+            color: #102f4d;
 
-            border-radius: 8px;
+            font-family:
 
-            background: #0da99a;
+                "Merriweather",
 
-            color: white;
+                serif;
+
+            font-size: 32px;
+
+            font-weight: 700;
+
+            line-height: 1.3;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .form-heading p {
+
+            color: #71869a;
 
             font-size: 15px;
 
-            font-family: inherit;
+            font-weight: 400;
+
+        }
+
+
+        .title-line {
+
+            width: 62px;
+
+            height: 4px;
+
+            margin: 15px auto 0;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    #13b9a8,
+
+                    #1688e8
+
+                );
+
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .error-message {
+
+            padding: 14px 17px;
+
+            margin-bottom: 26px;
+
+            border:
+
+                1px solid #f3c4c7;
+
+            border-radius: 10px;
+
+            background:
+
+                #fff1f2;
+
+            color:
+
+                #bd3039;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            animation:
+
+                errorIn 0.3s ease;
+
+        }
+
+
+        @keyframes errorIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+
+                    translateY(-5px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORM GRID
+           ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+
+                repeat(2, 1fr);
+
+            gap: 25px 28px;
+
+        }
+
+
+        .form-group {
+
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           LABEL
+           ===================================================== */
+
+        label {
+
+            margin-bottom: 9px;
+
+            color: #38536b;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.1px;
+
+        }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        input,
+
+        select {
+
+            width: 100%;
+
+            height: 52px;
+
+            padding:
+
+                0 16px;
+
+            border:
+
+                1px solid #d3e0e8;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background:
+
+                #f9fbfd;
+
+            color:
+
+                #23435e;
+
+            font-family:
+
+                "Outfit",
+
+                sans-serif;
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            transition:
+
+                border-color 0.25s ease,
+
+                background 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                transform 0.25s ease;
+
+        }
+
+
+        input::placeholder {
+
+            color:
+
+                #8ea2b2;
+
+        }
+
+
+        input:hover,
+
+        select:hover {
+
+            border-color:
+
+                #a7c2d0;
+
+            background:
+
+                #ffffff;
+
+        }
+
+
+        input:focus,
+
+        select:focus {
+
+            border-color:
+
+                var(--teal);
+
+            background:
+
+                #ffffff;
+
+            box-shadow:
+
+                0 0 0 4px
+
+                rgba(19,185,168,0.09);
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           SELECT
+           ===================================================== */
+
+        select {
+
+            cursor: pointer;
+
+            appearance: auto;
+
+        }
+
+
+        /* =====================================================
+           DATE
+           ===================================================== */
+
+        input[type="date"] {
+
+            color:
+
+                #23435e;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           BUTTON SECTION
+           ===================================================== */
+
+        .button-section {
+
+            margin-top: 39px;
+
+            padding-top: 27px;
+
+            border-top:
+
+                1px solid #e5edf2;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+
+        /* =====================================================
+           SAVE BUTTON
+           ===================================================== */
+
+        .save-btn {
+
+            width: 280px;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #13b9a8,
+
+                    #0b9f91
+
+                );
+
+            color: white;
+
+            font-family:
+
+                "Outfit",
+
+                sans-serif;
+
+            font-size: 15px;
 
             font-weight: 700;
 
             cursor: pointer;
 
-            transition: 0.2s;
+            box-shadow:
 
-            box-shadow: 0 5px 15px rgba(13, 169, 154, 0.22);
+                0 8px 18px
+
+                rgba(19,185,168,0.22);
+
+            transition:
+
+                transform 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                background 0.25s ease;
+
         }
+
 
         .save-btn:hover {
-            background: #078c80;
 
-            transform: translateY(-2px);
+            transform:
 
-            box-shadow: 0 8px 20px rgba(13, 169, 154, 0.28);
+                translateY(-3px);
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #0b9f91,
+
+                    #07887d
+
+                );
+
+            box-shadow:
+
+                0 12px 24px
+
+                rgba(19,185,168,0.28);
+
         }
 
+
+        .save-btn:active {
+
+            transform:
+
+                translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
         .back-btn {
-            display: block;
 
-            margin-top: 18px;
+            display: inline-flex;
 
-            color: #0b7f82;
+            align-items: center;
+
+            justify-content: center;
+
+            margin-top: 19px;
+
+            color:
+
+                #157c82;
 
             text-decoration: none;
 
             font-size: 14px;
 
-            font-weight: 600;
+            font-weight: 700;
+
+            transition:
+
+                color 0.25s ease,
+
+                transform 0.25s ease;
+
         }
+
 
         .back-btn:hover {
-            color: #075c60;
 
-            text-decoration: underline;
+            color:
+
+                #075d62;
+
+            transform:
+
+                translateY(-1px);
+
         }
 
-        /* ================= FOOTER ================= */
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
 
         .footer {
-            background: #092b49;
 
-            border-top: 4px solid #18b7a0;
+            position: relative;
 
-            color: #d9e5ee;
+            overflow: hidden;
+
+            min-height: 88px;
+
+            padding: 22px 15px;
+
+            background:
+
+                linear-gradient(
+
+                    105deg,
+
+                    #062b4d,
+
+                    #0a426c
+
+                );
+
+            border-top:
+
+                3px solid var(--teal);
+
+            color:
+
+                #dce8f0;
 
             text-align: center;
 
-            padding: 24px 15px;
-
             font-size: 13px;
+
+            flex-shrink: 0;
+
         }
 
-        .footer-main {
-            margin-bottom: 7px;
+
+        .footer::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: -100px;
+
+            bottom: -70px;
+
+            width: 350px;
+
+            height: 100px;
+
+            border:
+
+                2px solid
+
+                rgba(19,184,166,0.22);
+
+            border-radius: 50%;
+
         }
+
+
+        .footer::after {
+
+            content: "";
+
+            position: absolute;
+
+            right: 45px;
+
+            bottom: -15px;
+
+            width: 40px;
+
+            height: 40px;
+
+            border:
+
+                3px solid
+
+                rgba(19,210,190,0.28);
+
+            border-radius: 50%;
+
+        }
+
+
+        .footer-main,
 
         .footer-sub {
-            color: #20c4ae;
 
-            font-size: 12px;
+            position: relative;
+
+            z-index: 2;
+
         }
 
-        /* ================= RESPONSIVE ================= */
+
+        .footer-main {
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 400;
+
+        }
+
+
+        .footer-sub {
+
+            color:
+
+                #20c4ae;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+        }
+
+
+        /* =====================================================
+           FORM ANIMATION
+           ===================================================== */
+
+        @keyframes formAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 850px
+           ===================================================== */
 
         @media (max-width: 850px) {
 
             .header {
-                height: auto;
 
-                padding: 18px 5%;
+                min-height: auto;
+
+                padding:
+
+                    16px 5%;
 
                 flex-direction: column;
 
                 gap: 15px;
+
             }
 
+
             .nav {
+
                 flex-wrap: wrap;
 
                 justify-content: center;
+
             }
+
 
             .page {
-                width: 95%;
 
-                margin-top: 30px;
+                width: 94%;
+
+                margin-top: 28px;
+
+                margin-bottom: 40px;
+
             }
+
 
             .form-container {
-                padding: 35px 30px;
+
+                padding:
+
+                    36px 30px;
+
             }
+
         }
+
+
+        /* =====================================================
+           RESPONSIVE 650px
+           ===================================================== */
 
         @media (max-width: 650px) {
 
             .form-grid {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+
+                    1fr;
+
+                gap: 21px;
+
             }
+
 
             .form-container {
-                padding: 30px 22px;
+
+                padding:
+
+                    31px 22px;
+
             }
+
 
             .form-heading h1 {
-                font-size: 27px;
+
+                font-size:
+
+                    27px;
+
             }
 
-            .save-btn {
-                width: 100%;
+
+            .form-heading p {
+
+                font-size:
+
+                    14px;
+
             }
+
+
+            label {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            input,
+
+            select {
+
+                height:
+
+                    51px;
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            .save-btn {
+
+                width:
+
+                    100%;
+
+            }
+
         }
+
+
+        /* =====================================================
+           RESPONSIVE 500px
+           ===================================================== */
 
         @media (max-width: 500px) {
 
             .logo-text {
-                font-size: 18px;
+
+                font-size:
+
+                    17px;
+
+                letter-spacing:
+
+                    0.6px;
+
             }
+
+
+            .logo img {
+
+                width:
+
+                    43px;
+
+                height:
+
+                    43px;
+
+            }
+
 
             .nav a {
-                padding: 8px 10px;
 
-                font-size: 12px;
+                padding:
+
+                    9px 11px;
+
+                font-size:
+
+                    12px;
+
             }
+
+
+            .form-container {
+
+                border-radius:
+
+                    14px;
+
+                padding:
+
+                    28px 17px;
+
+            }
+
+
+            .form-heading {
+
+                margin-bottom:
+
+                    29px;
+
+            }
+
+
+            .form-heading h1 {
+
+                font-size:
+
+                    24px;
+
+            }
+
+
+            .form-heading p {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            label {
+
+                font-size:
+
+                    13px;
+
+            }
+
+
+            input,
+
+            select {
+
+                height:
+
+                    50px;
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            .save-btn {
+
+                height:
+
+                    51px;
+
+                font-size:
+
+                    14px;
+
+            }
+
+
+            .back-btn {
+
+                font-size:
+
+                    13px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE 380px
+           ===================================================== */
+
+        @media (max-width: 380px) {
+
+            .logo-text {
+
+                font-size:
+
+                    15px;
+
+            }
+
+
+            .logo img {
+
+                width:
+
+                    40px;
+
+                height:
+
+                    40px;
+
+            }
+
+
+            .nav {
+
+                gap:
+
+                    3px;
+
+            }
+
+
+            .nav a {
+
+                padding:
+
+                    7px 8px;
+
+                font-size:
+
+                    11px;
+
+            }
+
         }
 
     </style>
@@ -387,345 +1405,522 @@
 <body>
 
 
-    <!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
 
-            <div class="logo-icon">
-                ✚
-            </div>
+    <a href="/" class="logo">
 
-            <div class="logo-text">
-                HOSPITAL <span>MANAGEMENT SYSTEM</span>
-            </div>
+        <img
+
+            src="/images/hospital-logo.png?v=20260908"
+
+            alt="Hospital Logo"
+
+        >
+
+
+        <div class="logo-text">
+
+            HOSPITAL
+
+            <span>MANAGEMENT SYSTEM</span>
+
+        </div>
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="/">
+
+            Dashboard
+
+        </a>
+
+
+        <a href="/doctors">
+
+            Doctors
+
+        </a>
+
+
+        <a
+
+            href="/patients"
+
+            class="active">
+
+            Patients
+
+        </a>
+
+
+        <a href="/appointments">
+
+            Appointments
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+     ===================================================== -->
+
+<main class="page">
+
+
+    <div class="form-container">
+
+
+        <!-- =================================================
+             FORM HEADING
+             ================================================= -->
+
+        <div class="form-heading">
+
+
+            <h1>
+
+                Patient Details
+
+            </h1>
+
+
+            <p>
+
+                Enter the patient's personal and admission information
+
+            </p>
+
+
+            <div class="title-line"></div>
 
         </div>
 
 
-        <nav class="nav">
 
-            <a href="/">
-                🏠 Dashboard
-            </a>
+        <!-- =================================================
+             FORM
+             ================================================= -->
 
-            <a href="/doctors">
-                👨‍⚕️ Doctors
-            </a>
+        <form
 
-            <a href="/patients" class="active">
-                👤 Patients
-            </a>
+            th:action="@{/patients/save}"
 
-            <a href="/appointments">
-                📅 Appointments
-            </a>
+            th:object="${patient}"
 
-        </nav>
+            method="post">
 
-    </header>
 
+            <!-- KEEP ID FOR EDIT -->
 
+            <input
 
-    <!-- ================= PAGE ================= -->
+                type="hidden"
 
-    <main class="page">
+                th:field="*{id}">
 
-        <div class="form-container">
 
 
-            <!-- ================= FORM HEADING ================= -->
+            <!-- =================================================
+                 FORM GRID
+                 ================================================= -->
 
-            <div class="form-heading">
+            <div class="form-grid">
 
-                <h1>
-                    👤 Patient Details
-                </h1>
 
-                <p>
-                    Enter the patient's personal and admission information
-                </p>
+                <!-- PATIENT NAME -->
 
-                <div class="title-line"></div>
+                <div class="form-group">
 
-            </div>
+                    <label>
 
+                        Patient Name
 
+                    </label>
 
-            <!-- ================= FORM ================= -->
 
-            <form
-                th:action="@{/patients/save}"
-                th:object="${patient}"
-                method="post">
+                    <input
 
+                        type="text"
 
-                <!-- Hidden ID -->
+                        th:field="*{name}"
 
-                <input type="hidden" th:field="*{id}">
+                        placeholder="Enter patient name"
 
-
-
-                <!-- ================= FORM GRID ================= -->
-
-                <div class="form-grid">
-
-
-                    <!-- ================= NAME ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Patient Name
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{name}"
-                            placeholder="Enter patient name"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= AGE ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Age
-                        </label>
-
-                        <input
-                            type="number"
-                            th:field="*{age}"
-                            placeholder="Enter age"
-                            min="1"
-                            max="120"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= GENDER ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Gender
-                        </label>
-
-                        <select
-                            th:field="*{gender}"
-                            required>
-
-                            <option value="">
-                                -- Select Gender --
-                            </option>
-
-                            <option value="Male">
-                                Male
-                            </option>
-
-                            <option value="Female">
-                                Female
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ================= PHONE ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Phone Number
-                        </label>
-
-                        <input
-                            type="tel"
-                            th:field="*{phone}"
-                            placeholder="Enter phone number"
-                            required>
-
-                    </div>
-
-
-
-                    <!-- ================= EMAIL ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            th:field="*{email}"
-                            placeholder="Enter email address">
-
-                    </div>
-
-
-
-                    <!-- ================= REASON ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Reason
-                        </label>
-
-                        <select
-                            th:field="*{disease}"
-                            required>
-
-                            <option value="">
-                                -- Select Reason --
-                            </option>
-
-                            <option value="General Checkup">
-                                General Checkup
-                            </option>
-
-                            <option value="Fever">
-                                Fever
-                            </option>
-
-                            <option value="Headache">
-                                Headache
-                            </option>
-
-                            <option value="Cold & Cough">
-                                Cold & Cough
-                            </option>
-
-                            <option value="Body Pain">
-                                Body Pain
-                            </option>
-
-                            <option value="Stomach Pain">
-                                Stomach Pain
-                            </option>
-
-                            <option value="Chest Pain">
-                                Chest Pain
-                            </option>
-
-                            <option value="Injury">
-                                Injury
-                            </option>
-
-                            <option value="Follow-up">
-                                Follow-up
-                            </option>
-
-                            <option value="Vaccination">
-                                Vaccination
-                            </option>
-
-                            <option value="Medical Consultation">
-                                Medical Consultation
-                            </option>
-
-                            <option value="Routine Checkup">
-                                Routine Checkup
-                            </option>
-
-                            <option value="Health Screening">
-                                Health Screening
-                            </option>
-
-                            <option value="Emergency">
-                                Emergency
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ================= ADMISSION DATE ================= -->
-
-                    <div class="form-group">
-
-                        <label>
-                            Admission Date
-                        </label>
-
-                        <input
-                            type="date"
-                            th:field="*{admissionDate}"
-                            required>
-
-                    </div>
-
+                        required>
 
                 </div>
 
 
 
-                <!-- ================= BUTTONS ================= -->
+                <!-- AGE -->
 
-                <div class="button-section">
+                <div class="form-group">
 
-                    <button
-                        type="submit"
-                        class="save-btn">
+                    <label>
 
-                        💾 Save Patient
+                        Age
 
-                    </button>
+                    </label>
 
 
-                    <a
-                        href="/patients"
-                        class="back-btn">
+                    <input
 
-                        ← Back to Patient List
+                        type="number"
 
-                    </a>
+                        th:field="*{age}"
+
+                        placeholder="Enter age"
+
+                        min="1"
+
+                        max="120"
+
+                        required>
 
                 </div>
 
 
-            </form>
 
-        </div>
+                <!-- GENDER -->
 
-    </main>
+                <div class="form-group">
+
+                    <label>
+
+                        Gender
+
+                    </label>
+
+
+                    <select
+
+                        th:field="*{gender}"
+
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Gender --
+
+                        </option>
+
+
+                        <option value="Male">
+
+                            Male
+
+                        </option>
+
+
+                        <option value="Female">
+
+                            Female
+
+                        </option>
+
+
+                        <option value="Other">
+
+                            Other
+
+                        </option>
+
+
+                    </select>
+
+                </div>
 
 
 
-    <!-- ================= FOOTER ================= -->
+                <!-- PHONE -->
 
-    <footer class="footer">
+                <div class="form-group">
 
-        <div class="footer-main">
-            © 2026 Hospital Management System. All Rights Reserved.
-        </div>
+                    <label>
 
-        <div class="footer-sub">
-            Caring for Life • Committed to Excellence
-        </div>
+                        Phone Number
 
-    </footer>
+                    </label>
+
+
+                    <input
+
+                        type="tel"
+
+                        th:field="*{phone}"
+
+                        placeholder="Enter phone number"
+
+                        required>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Email
+
+                    </label>
+
+
+                    <input
+
+                        type="email"
+
+                        th:field="*{email}"
+
+                        placeholder="Enter email address">
+
+                </div>
+
+
+
+                <!-- REASON -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Reason
+
+                    </label>
+
+
+                    <select
+
+                        th:field="*{disease}"
+
+                        required>
+
+
+                        <option value="">
+
+                            -- Select Reason --
+
+                        </option>
+
+
+                        <option value="General Checkup">
+
+                            General Checkup
+
+                        </option>
+
+
+                        <option value="Fever">
+
+                            Fever
+
+                        </option>
+
+
+                        <option value="Headache">
+
+                            Headache
+
+                        </option>
+
+
+                        <option value="Cold & Cough">
+
+                            Cold &amp; Cough
+
+                        </option>
+
+
+                        <option value="Body Pain">
+
+                            Body Pain
+
+                        </option>
+
+
+                        <option value="Stomach Pain">
+
+                            Stomach Pain
+
+                        </option>
+
+
+                        <option value="Chest Pain">
+
+                            Chest Pain
+
+                        </option>
+
+
+                        <option value="Injury">
+
+                            Injury
+
+                        </option>
+
+
+                        <option value="Follow-up">
+
+                            Follow-up
+
+                        </option>
+
+
+                        <option value="Vaccination">
+
+                            Vaccination
+
+                        </option>
+
+
+                        <option value="Medical Consultation">
+
+                            Medical Consultation
+
+                        </option>
+
+
+                        <option value="Routine Checkup">
+
+                            Routine Checkup
+
+                        </option>
+
+
+                        <option value="Health Screening">
+
+                            Health Screening
+
+                        </option>
+
+
+                        <option value="Emergency">
+
+                            Emergency
+
+                        </option>
+
+
+                        <option value="Other">
+
+                            Other
+
+                        </option>
+
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ADMISSION DATE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Admission Date
+
+                    </label>
+
+
+                    <input
+
+                        type="date"
+
+                        th:field="*{admissionDate}"
+
+                        required>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUTTONS
+                 ================================================= -->
+
+            <div class="button-section">
+
+
+                <button
+
+                    type="submit"
+
+                    class="save-btn">
+
+                    Save Patient
+
+                </button>
+
+
+                <a
+
+                    href="/patients"
+
+                    class="back-btn">
+
+                    Back to Patient List
+
+                </a>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-main">
+
+        © 2026 Hospital Management System.
+
+        All Rights Reserved.
+
+    </div>
+
+
+    <div class="footer-sub">
+
+        Caring for Life • Committed to Excellence
+
+    </div>
+
+
+</footer>
 
 
 </body>
